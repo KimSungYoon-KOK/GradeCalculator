@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.FragmentManager
+import com.example.grade_calculator.MyPage.MypageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 val nowGPA = 3.16
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setBottomNavListener() {
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item: MenuItem ->
             return@setOnNavigationItemSelectedListener when (item.itemId) {
                 R.id.nav_home -> {
