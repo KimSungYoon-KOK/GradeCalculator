@@ -4,11 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class MyPage_item(
-    val className: String,      //과목명
-    val credit:Int,             //이수 학점
-    val grade:Float,            //현재 성적
-    val category: Boolean,      //수업 분류(전공:true, 교양:false)
-    val retakeGrade:Float       //재수강 후 학점
+    var className: String,      //과목명
+    var credit:Int,             //이수 학점
+    var grade:Float,            //현재 성적
+    var category: Boolean,      //수업 분류(전공:true, 교양:false)
+    var retakeGrade:Float       //재수강 후 학점
 ):Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,

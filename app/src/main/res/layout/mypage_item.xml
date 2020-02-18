@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="40dp">
 
     <TextView
         android:id="@+id/tv_className"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_weight="5"
         android:gravity="center"
-        android:text="과목명" />
+        android:text="과목명"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/tv_credit"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="center"
-        android:text="이수 학점" />
+        android:text="학점" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/tv_grade"
@@ -25,7 +41,14 @@
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:gravity="center"
-        android:text="현재 성적" />
+        android:text="성적" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/tv_category"
@@ -35,11 +58,26 @@
         android:gravity="center"
         android:text="분류" />
 
+    <View
+        android:id="@+id/view4"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary" />
+
     <TextView
         android:id="@+id/tv_retakeGrade"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tv_retakeGrade_not"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
         android:gravity="center"
-        android:text="재수강" />
+        android:text="불가"
+        android:visibility="gone"/>
 </LinearLayout>
