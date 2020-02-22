@@ -42,7 +42,7 @@ class Calculator {
 
         for(i in 0 until itemlist[position].size){
             semesterCredit += itemlist[position][i].credit
-            if(itemlist[position][i].grade == 10.toFloat()){
+            if(itemlist[position][i].retakeGrade == 10.toFloat()){
                 continue
             }
             semesterCredit_P += itemlist[position][i].credit

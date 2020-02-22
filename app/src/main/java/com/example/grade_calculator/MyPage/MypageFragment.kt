@@ -142,20 +142,21 @@ class MypageFragment : Fragment() {
                 itemlist: ArrayList<ArrayList<MyPage_item>>
             ) {
                 saveGPA = itemlist
-                MySharedPreferences(requireContext()).prefs.edit().clear()
-
-                Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
+                MySharedPreferences(requireContext()).prefs.edit().clear().commit()
 
                 for(i in 0 until saveGPA.size){
                     var ttemplist = ArrayList<String>()
                     for(j in 0 until saveGPA[i].size){
                         var str = i.toString() + " " + saveGPA[i][j].className + " " + saveGPA[i][j].credit.toString() +  " " + saveGPA[i][j].grade.toString() +  " " + saveGPA[i][j].category.toString() +  " " + saveGPA[i][j].retakeGrade.toString()
                         ttemplist.add(str)
-                        MySharedPreferences(requireContext()).setStringArrayPref(SETTINGS_PLAYER_JSON, tempList)
                     }
+                    Log.d("ttemplist",ttemplist.toString())
+                    MySharedPreferences(requireContext()).setStringArrayPref(SETTINGS_PLAYER_JSON, ttemplist)
+                    Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
                     ttemplist.clear()
                 }
                 MySharedPreferences(requireContext()).prefs.edit().commit()
+                //Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
             }
 
         }

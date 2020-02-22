@@ -61,6 +61,35 @@ class MyPage_RecyclerViewAdapter(
                 //spinner 이용해서 재수강 성적 받고 다시 계산
             }else{
                 //다시 계산하고 리사이클러 뷰 갱신
+                when(data.retakeGrade){
+                    4.5.toFloat()->{
+                        holder.item_retakeGrade.text = "A+"
+                    }
+                    4.0.toFloat()->{
+                        holder.item_retakeGrade.text = "A0"
+                    }
+                    3.5.toFloat()->{
+                        holder.item_retakeGrade.text = "B+"
+                    }
+                    3.0.toFloat()->{
+                        holder.item_retakeGrade.text = "B0"
+                    }
+                    2.5.toFloat()->{
+                        holder.item_retakeGrade.text = "C+"
+                    }
+                    2.0.toFloat()->{
+                        holder.item_retakeGrade.text = "C0"
+                    }
+                    1.5.toFloat()->{
+                        holder.item_retakeGrade.text = "D+"
+                    }
+                    1.0.toFloat()->{
+                        holder.item_retakeGrade.text = "D0"
+                    }
+                    10.toFloat()->{
+                        holder.item_retakeGrade.text = "P"
+                    }
+                }
             }
         }
 
@@ -72,60 +101,68 @@ class MyPage_RecyclerViewAdapter(
             popupMenu.setOnMenuItemClickListener {
                 when(it.itemId){
                     R.id.aa->{
-                        holder.item_retakeGrade.text = "A+"
                         items[position].retakeGrade = 4.5.toFloat()
-                        listener.onChangeCallback(holder.itemView, items)
+                        Log.d("itemslist",items.toString())
+//                        listener.onChangeCallback(holder.itemView, items)
                         notifyDataSetChanged()
                         true
                     }
                     R.id.a0->{
-                        holder.item_retakeGrade.text = "A0"
                         items[position].retakeGrade = 4.0.toFloat()
-                        listener.onChangeCallback(holder.itemView, items)
+                        Log.d("itemslist",items.toString())
+//                        listener.onChangeCallback(holder.itemView, items)
                         notifyDataSetChanged()
                         true
                     }
                     R.id.bb->{
-                        holder.item_retakeGrade.text = "B+"
                         items[position].retakeGrade = 3.5.toFloat()
-                        listener.onChangeCallback(holder.itemView, items)
+                        Log.d("itemslist",items.toString())
+//                        listener.onChangeCallback(holder.itemView, items)
                         notifyDataSetChanged()
                         true
                     }
                     R.id.b0->{
-                        holder.item_retakeGrade.text = "B0"
                         items[position].retakeGrade = 3.0.toFloat()
-                        listener.onChangeCallback(holder.itemView, items)
+                        Log.d("itemslist",items.toString())
+//                        listener.onChangeCallback(holder.itemView, items)
                         notifyDataSetChanged()
                         true
                     }
                     R.id.cc->{
-                        holder.item_retakeGrade.text = "C+"
                         items[position].retakeGrade = 2.5.toFloat()
-                        listener.onChangeCallback(holder.itemView, items)
+                       Log.d("itemslist",items.toString())
+//                        listener.onChangeCallback(holder.itemView, items)
                         notifyDataSetChanged()
                         true
                     }
                     R.id.c0->{
-                        holder.item_retakeGrade.text = "C0"
                         items[position].retakeGrade = 2.0.toFloat()
-                        listener.onChangeCallback(holder.itemView, items)
+                        Log.d("itemslist",items.toString())
+//                        listener.onChangeCallback(holder.itemView, items)
                         notifyDataSetChanged()
                         true
                     }
                     R.id.dd->{
-                        holder.item_retakeGrade.text = "D+"
                         items[position].retakeGrade = 1.5.toFloat()
-                        listener.onChangeCallback(holder.itemView, items)
+                        Log.d("itemslist",items.toString())
+//                        listener.onChangeCallback(holder.itemView, items)
                         notifyDataSetChanged()
                         true
                     }
                     R.id.d0->{
-                        holder.item_retakeGrade.text = "D0"
                         items[position].retakeGrade = 1.0.toFloat()
-                        listener.onChangeCallback(holder.itemView, items)
+                        Log.d("itemslist",items.toString())
+                        //listener.onChangeCallback(holder.itemView, items)
                         notifyDataSetChanged()
                         true
+                    }
+                    R.id.p->{
+                        items[position].retakeGrade = 10.toFloat()
+                        Log.d("itemslist",items.toString())
+                        //listener.onChangeCallback(holder.itemView, items)
+                        notifyDataSetChanged()
+                        true
+
                     }
                     else -> false
                 }
@@ -164,9 +201,6 @@ class MyPage_RecyclerViewAdapter(
             item_category = itemView.findViewById(R.id.tv_category)
             item_retakeGrade = itemView.findViewById(R.id.tv_retakeGrade)
             item_retakeGrade_not = itemView.findViewById(R.id.tv_retakeGrade_not)
-
-
-
         }
     }
 }
