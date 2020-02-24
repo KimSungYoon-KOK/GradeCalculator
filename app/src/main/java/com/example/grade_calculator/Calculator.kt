@@ -1,5 +1,6 @@
 package com.example.grade_calculator
 
+import android.content.Context
 import com.example.grade_calculator.MyPage.MyPage_item
 import kotlin.math.round
 
@@ -59,5 +60,47 @@ class Calculator {
 
         return semesterGrade.toString()
     }
+
+    fun totalCalculate(context:Context, itemlist : ArrayList<ArrayList<MyPage_item>>):Float{
+
+        var credit = 0
+        var credit_P = 0
+        var grade = 0.toFloat()
+
+        for(i in 0 until  itemlist.size){
+            for(j in 0 until itemlist[i].size){
+                credit += itemlist[i][j].credit
+                if(itemlist[i][j].grade == 10.toFloat()){
+                    continue
+                }
+                credit_P += itemlist[i][j].credit
+                grade += itemlist[i][j].grade*itemlist[i][j].credit
+            }
+        }
+
+        if(credit_P != 0){
+            grade /= credit_P
+            grade *= 100
+            grade = round(grade)/100
+        }
+
+        MySharedPreferences(context).setTotalCredit(credit)
+        MySharedPreferences(context).setTotalCredit_P(credit-credit_P)
+
+        return grade
+    }
+
+    fun needGPA_Calculate(graduateCredit: Int, nowCredit: Int, nowCredit_P: Int,goalGPA: Float, nowGPA: Float):Float{
+
+        val result = graduateCredit - nowCredit_P
+        var goal = goalGPA * result
+        val now = nowGPA * (nowCredit-nowCredit_P)
+
+        goal = now - goal
+        val need = goal/(result-nowCredit)
+
+        return need
+    }
+
 
 }

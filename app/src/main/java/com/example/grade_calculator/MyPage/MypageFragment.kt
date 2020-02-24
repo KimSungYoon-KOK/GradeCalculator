@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.grade_calculator.Calculator
 import com.example.grade_calculator.MySharedPreferences
 import com.example.grade_calculator.R
 import com.google.android.material.tabs.TabLayout
@@ -156,6 +157,9 @@ class MypageFragment : Fragment() {
                 //Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
                 MySharedPreferences(requireContext()).prefs.edit().commit()
                 //Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
+
+                //전체 학점 평균 재 계산해서 반영
+                MySharedPreferences(requireContext()).setTotalGPA(Calculator().totalCalculate(requireContext(),saveGPA))
             }
 
         }

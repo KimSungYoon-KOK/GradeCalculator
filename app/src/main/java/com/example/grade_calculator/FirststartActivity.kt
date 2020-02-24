@@ -68,8 +68,7 @@ class FirststartActivity : AppCompatActivity() {
                                 .show()
                         } else {
                             //startActivity 안뜨게 sharedpreference 조정하기
-
-
+                            MySharedPreferences(this).setUserInfo(editText.text.toString().toInt(), editText2.text.toString().toInt(), editText3.text.toString().toFloat())
                             //intent 넘기기
                             val Intent = Intent(this, MainActivity::class.java)
                             startActivity(Intent)
