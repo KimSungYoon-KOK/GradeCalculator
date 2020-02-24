@@ -10,14 +10,7 @@ import kotlinx.android.synthetic.main.fragment_setting.*
 
 class SettingFragment : Fragment(){
 
-    //졸업 기준 학점
-    var graduateCredit = MySharedPreferences(requireContext()).getGraduate()
-    //졸업 전공 기준 학점
-    var graduateMajorCredit = MySharedPreferences(requireContext()).getMajorGraduate()
-    //목표 평점
-    var goalGPA = MySharedPreferences(requireContext()).getUserGoal()
-
-    override fun onCreateView(
+       override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -34,11 +27,18 @@ class SettingFragment : Fragment(){
 
     fun init(){
 
+        //졸업 기준 학점
+        var graduateCredit = MySharedPreferences(requireContext()).getGraduate()
+        //졸업 전공 기준 학점
+        var graduateMajorCredit = MySharedPreferences(requireContext()).getMajorGraduate()
+        //목표 평점
+        var goalGPA = MySharedPreferences(requireContext()).getUserGoal()
+
         tv_graduate_credit.text = graduateCredit.toString()
         tv_graduate_major_credit.text = graduateMajorCredit.toString()
         tv_goalGPA.text = goalGPA.toString()
         tv_rest_credit.text = (graduateCredit - MySharedPreferences(requireContext()).getTotalCredit()).toString()
-        
+
         val nowGPA = MySharedPreferences(requireContext()).getTotalGPA()
         tv_nowGPA.text = nowGPA.toString()
 

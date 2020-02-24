@@ -68,26 +68,26 @@ class MySharedPreferences(context: Context) {
         editor.putInt(PREF_MAJOR_GRADUATE, majorGraduate)
         editor.putFloat(PREF_USER_GOAL, userGoal)
         editor.putBoolean(FLAG,true)
-        editor.commit()
+        editor.apply()
     }
 
     fun setTotalGPA(totalGPA: Float){
         val editor = prefs.edit()
         editor.putFloat(PREF_TOTAL_GPA, totalGPA)
 
-        editor.commit()
+        editor.apply()
     }
 
     fun setTotalCredit(totalCredit: Int){
         val editor = prefs.edit()
         editor.putInt(PREF_TOTAL_CREDIT, totalCredit)
-        editor.commit()
+        editor.apply()
     }
 
     fun setTotalCredit_P(totalCredit_P: Int){
         val editor = prefs.edit()
         editor.putInt(PREF_TOTAL_CREDIT_P, totalCredit_P)
-        editor.commit()
+        editor.apply()
     }
 
 
