@@ -30,12 +30,12 @@ class MainActivity : AppCompatActivity() {
                     attachHome()
                     true
                 }
-                R.id.nav_add -> {
-                    attachAdd()
-                    true
-                }
                 R.id.nav_mypage -> {
                     attachMypage()
+                    true
+                }
+                R.id.nav_setting -> {
+                    attachSetting()
                     true
                 }
                 else -> false
@@ -59,20 +59,6 @@ class MainActivity : AppCompatActivity() {
             current_status = "home"
         }
     }
-    fun attachAdd(){
-        val frag = supportFragmentManager.findFragmentByTag("addGPA")
-        val tagStr = frag?.tag.toString()
-        if(tagStr == "addGPA"){
-
-        } else{
-            val ForecastTransaction = supportFragmentManager.beginTransaction()
-            val addFrag = AddFragment()
-            ForecastTransaction.replace(R.id.frame, addFrag)
-            val clear = supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            ForecastTransaction.commit()
-            current_status = "addGPA"
-        }
-    }
 
     fun attachMypage(){
         val frag = supportFragmentManager.findFragmentByTag("mypage")
@@ -85,6 +71,21 @@ class MainActivity : AppCompatActivity() {
             MyPageTransaction.replace(R.id.frame, mypageFrag)
             MyPageTransaction.commit()
             current_status = "mypage"
+        }
+    }
+
+    fun attachSetting(){
+        val frag = supportFragmentManager.findFragmentByTag("setting")
+        val tagStr = frag?.tag.toString()
+        if(tagStr == "setting"){
+
+        } else{
+            val ForecastTransaction = supportFragmentManager.beginTransaction()
+            val addFrag = SettingFragment()
+            ForecastTransaction.replace(R.id.frame, addFrag)
+            val clear = supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            ForecastTransaction.commit()
+            current_status = "setting"
         }
     }
 }

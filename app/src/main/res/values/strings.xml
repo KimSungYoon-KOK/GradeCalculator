@@ -2,8 +2,8 @@
     <string name="app_name">학점 계산기</string>
     <string name="title_activity_main2">Main2Activity</string>
 
-<!--Bottom Navigation Title-->
+    <!--Bottom Navigation Title-->
     <string name="title_home">Home</string>
-    <string name="title_add">Add</string>
+    <string name="title_setting">Setting</string>
     <string name="title_mypage">My Page</string>
 </resources>

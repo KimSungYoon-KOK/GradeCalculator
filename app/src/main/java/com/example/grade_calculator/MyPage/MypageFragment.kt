@@ -153,7 +153,7 @@ class MypageFragment : Fragment() {
                     }
                     //ttemplist.clear()
                 }
-                Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
+                //Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
                 MySharedPreferences(requireContext()).prefs.edit().commit()
                 //Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
             }
