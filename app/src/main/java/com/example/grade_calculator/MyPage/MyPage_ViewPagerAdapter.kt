@@ -45,11 +45,9 @@ class MyPage_ViewPagerAdapter(
         val listener = object : MyPage_RecyclerViewAdapter.RecyclerViewAdapterEventListener{
             override fun onChangeCallback(view: View, items: ArrayList<MyPage_item>) {
                 addListener.onChangeCallback2(view, itemlist)
-                Log.d("tag_2","onchangecallback2 호출")
                 holder.semester_status.text =
                     Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
             }
-
         }
 
         adapter = MyPage_RecyclerViewAdapter(c, listener, itemlist[position])
