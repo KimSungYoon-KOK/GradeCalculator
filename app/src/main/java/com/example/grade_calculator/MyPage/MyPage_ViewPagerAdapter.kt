@@ -1,18 +1,15 @@
 package com.example.grade_calculator.MyPage
 
-import android.app.AlertDialog
 import android.content.Context
-import android.media.AudioTrack
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.grade_calculator.App
 import com.example.grade_calculator.Calculator
 import com.example.grade_calculator.R
-import kotlinx.android.synthetic.main.mypage_page.view.*
 
 class MyPage_ViewPagerAdapter(
     val c: Context,
@@ -20,6 +17,7 @@ class MyPage_ViewPagerAdapter(
     val addListener: MyPageEventListener
 ): RecyclerView.Adapter<MyPage_ViewPagerAdapter.ViewHolder>(){
 
+    private val SETTINGS_PLAYER_JSON = "settings_item_json"
 
     interface MyPageEventListener{
         fun addGrade(view:View, position: Int)
@@ -37,8 +35,9 @@ class MyPage_ViewPagerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var layoutManager:RecyclerView.LayoutManager
-        var adapter:MyPage_RecyclerViewAdapter
+
+        val layoutManager:RecyclerView.LayoutManager
+        val adapter:MyPage_RecyclerViewAdapter
         layoutManager = LinearLayoutManager(c, RecyclerView.VERTICAL, false)
         holder.recyclerView.layoutManager = layoutManager
 
@@ -46,6 +45,16 @@ class MyPage_ViewPagerAdapter(
             override fun onChangeCallback(view: View, items: ArrayList<MyPage_item>) {
                 val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
                 holder.semester_status.text = str
+
+//                for(i in 0 until itemlist.size) {
+//                    val strList = ArrayList<String>()
+//                    for (j in 0 until itemlist[i].size) {
+//                        val tempStr =
+//                            i.toString() + " " + itemlist[i][j].className + " " + itemlist[i][j].credit.toString() + " " + itemlist[i][j].grade.toString() + " " + itemlist[i][j].category.toString() + " " + itemlist[i][j].retakeGrade.toString()
+//                        strList.add(tempStr)
+//                        App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON, strList)
+//                    }
+//                }
             }
         }
 
@@ -58,7 +67,6 @@ class MyPage_ViewPagerAdapter(
 
         val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
         holder.semester_status.text = str
-
     }
 
 

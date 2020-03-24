@@ -23,7 +23,6 @@ class MyPage_RecyclerViewAdapter(
         fun onChangeCallback(view: View, items: ArrayList<MyPage_item>)
     }
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -93,8 +92,6 @@ class MyPage_RecyclerViewAdapter(
             }
         }
 
-        listener.onChangeCallback(holder.itemView, items)
-
         //재수강 클릭 리스너
         holder.item_retakeGrade.setOnClickListener {
             val popupMenu = PopupMenu(context, it)
@@ -102,70 +99,36 @@ class MyPage_RecyclerViewAdapter(
                 when(it.itemId){
                     R.id.aa->{
                         items[position].retakeGrade = 4.5.toFloat()
-                        Log.d("itemslist",items.toString())
-//                        listener.onChangeCallback(holder.itemView, items)
-                        notifyDataSetChanged()
-                        true
                     }
                     R.id.a0->{
                         items[position].retakeGrade = 4.0.toFloat()
-                        Log.d("itemslist",items.toString())
-//                        listener.onChangeCallback(holder.itemView, items)
-                        notifyDataSetChanged()
-                        true
                     }
                     R.id.bb->{
                         items[position].retakeGrade = 3.5.toFloat()
-                        Log.d("itemslist",items.toString())
-//                        listener.onChangeCallback(holder.itemView, items)
-                        notifyDataSetChanged()
-                        true
                     }
                     R.id.b0->{
                         items[position].retakeGrade = 3.0.toFloat()
-                        Log.d("itemslist",items.toString())
-//                        listener.onChangeCallback(holder.itemView, items)
-                        notifyDataSetChanged()
-                        true
                     }
                     R.id.cc->{
                         items[position].retakeGrade = 2.5.toFloat()
-                       Log.d("itemslist",items.toString())
-//                        listener.onChangeCallback(holder.itemView, items)
-                        notifyDataSetChanged()
-                        true
                     }
                     R.id.c0->{
                         items[position].retakeGrade = 2.0.toFloat()
-                        Log.d("itemslist",items.toString())
-//                        listener.onChangeCallback(holder.itemView, items)
-                        notifyDataSetChanged()
-                        true
                     }
                     R.id.dd->{
                         items[position].retakeGrade = 1.5.toFloat()
-                        Log.d("itemslist",items.toString())
-//                        listener.onChangeCallback(holder.itemView, items)
-                        notifyDataSetChanged()
-                        true
                     }
                     R.id.d0->{
                         items[position].retakeGrade = 1.0.toFloat()
-                        Log.d("itemslist",items.toString())
-                        //listener.onChangeCallback(holder.itemView, items)
-                        notifyDataSetChanged()
-                        true
                     }
                     R.id.p->{
                         items[position].retakeGrade = 10.toFloat()
-                        Log.d("itemslist",items.toString())
-                        //listener.onChangeCallback(holder.itemView, items)
-                        notifyDataSetChanged()
-                        true
-
                     }
                     else -> false
                 }
+                notifyDataSetChanged()
+                listener.onChangeCallback(holder.itemView, items)
+                true
             }
             popupMenu.inflate(R.menu.popupmenu_retake)
 

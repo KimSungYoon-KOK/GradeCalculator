@@ -11,8 +11,6 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.grade_calculator.App
-import com.example.grade_calculator.Calculator
-import com.example.grade_calculator.MySharedPreferences
 import com.example.grade_calculator.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -24,7 +22,7 @@ class MypageFragment : Fragment() {
     private val SETTINGS_PLAYER_JSON = "settings_item_json"
 
     lateinit var saveGPA:ArrayList<ArrayList<MyPage_item>>          //학점 정보 저장하는 이차원 리스트
-    lateinit var sharedPrefList:ArrayList<String>                         //sharedpreferences 저장시 사용하는 임시 리스트
+    lateinit var sharedPrefList:ArrayList<String>                   //sharedpreferences 저장시 사용하는 임시 리스트
 
 
     override fun onCreateView(
@@ -71,7 +69,7 @@ class MypageFragment : Fragment() {
                 }
                 val retakeGrade = str[5].toFloat()
 
-                saveGPA[tab_index].add(MyPage_item(className, credit, grade, category, retakeGrade))
+                saveGPA[tab_index].add(MyPage_item(tab_index, className, credit, grade, category, retakeGrade))
             }
 
             //Log.d("saveLog",saveGPA.toString())
@@ -117,7 +115,7 @@ class MypageFragment : Fragment() {
                             }
 
                             //dialog에 작성한 과목 정보를 saveGPA에 추가
-                            saveGPA[position].add(MyPage_item(et_className.text.toString(), (spinner_credit.selectedItemPosition+1), tempGrade, tempCategory,tempGrade))
+                            saveGPA[position].add(MyPage_item(position, et_className.text.toString(), (spinner_credit.selectedItemPosition+1), tempGrade, tempCategory,tempGrade))
 
                             //MyPage_item 객체를 하나의 String으로 만들어서 sharedpreference에 저장
                             sharedPrefList.add(position.toString() + " " + et_className.text.toString() + " " + (spinner_credit.selectedItemPosition+1).toString() +  " " + tempGrade.toString() +  " " + tempCategory.toString() +  " " + tempGrade.toString())
@@ -138,7 +136,7 @@ class MypageFragment : Fragment() {
             }
         }
 
-        mypage_viewpager.adapter = MyPage_ViewPagerAdapter(activity!!.applicationContext, saveGPA,listener)
+        mypage_viewpager.adapter = MyPage_ViewPagerAdapter(activity!!.applicationContext, saveGPA, listener)
 
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
         TabLayoutMediator(tabLayout, mypage_viewpager){

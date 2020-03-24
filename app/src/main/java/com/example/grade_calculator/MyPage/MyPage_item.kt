@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class MyPage_item(
+    var semester: Int,
     var className: String,      //과목명
     var credit:Int,             //이수 학점
     var grade:Float,            //현재 성적
@@ -11,6 +12,7 @@ data class MyPage_item(
     var retakeGrade:Float       //재수강 후 학점
 ):Parcelable{
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readFloat(),
@@ -20,6 +22,7 @@ data class MyPage_item(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(semester)
         parcel.writeString(className)
         parcel.writeInt(credit)
         parcel.writeFloat(grade)
