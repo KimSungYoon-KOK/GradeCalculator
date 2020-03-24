@@ -23,7 +23,7 @@ class MyPage_ViewPagerAdapter(
 
     interface MyPageEventListener{
         fun addGrade(view:View, position: Int)
-        fun onChangeCallback2(view:View, itemlist: ArrayList<ArrayList<MyPage_item>>)
+        //fun onChangeCallback2(view:View, itemlist: ArrayList<ArrayList<MyPage_item>>)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,9 +44,8 @@ class MyPage_ViewPagerAdapter(
 
         val listener = object : MyPage_RecyclerViewAdapter.RecyclerViewAdapterEventListener{
             override fun onChangeCallback(view: View, items: ArrayList<MyPage_item>) {
-                addListener.onChangeCallback2(view, itemlist)
-                holder.semester_status.text =
-                    Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
+                val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
+                holder.semester_status.text = str
             }
         }
 
@@ -57,8 +56,8 @@ class MyPage_ViewPagerAdapter(
             addListener.addGrade(it, position)
         }
 
-        holder.semester_status.text =
-            Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
+        val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
+        holder.semester_status.text = str
 
     }
 

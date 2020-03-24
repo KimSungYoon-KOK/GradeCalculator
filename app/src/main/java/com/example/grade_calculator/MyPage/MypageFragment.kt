@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.grade_calculator.App
 import com.example.grade_calculator.Calculator
 import com.example.grade_calculator.MySharedPreferences
 import com.example.grade_calculator.R
@@ -22,8 +23,8 @@ class MypageFragment : Fragment() {
 
     private val SETTINGS_PLAYER_JSON = "settings_item_json"
 
-    lateinit var saveGPA:ArrayList<ArrayList<MyPage_item>>
-    lateinit var tempList:ArrayList<String>
+    lateinit var saveGPA:ArrayList<ArrayList<MyPage_item>>          //학점 정보 저장하는 이차원 리스트
+    lateinit var sharedPrefList:ArrayList<String>                         //sharedpreferences 저장시 사용하는 임시 리스트
 
 
     override fun onCreateView(
@@ -38,7 +39,7 @@ class MypageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         saveGPA = ArrayList()
-        tempList = ArrayList()
+        sharedPrefList = ArrayList()
         initViewPager()
     }
 
@@ -51,13 +52,14 @@ class MypageFragment : Fragment() {
         }
 
         ////////////////////////////이전에 저장된 정보를 불러와서 리사이클러뷰에 부착///////////////////////////
-        var tempList = MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON)
-        if(!tempList.isEmpty()){
-            for(i in 0 until tempList.size){
-                val str = tempList[i].split(" ")
-                //str[0] : viewpager position / str[1] : className / str[2] : credit / str[3] : grade / str[4] : category / str[5] : retakeGrade
+        sharedPrefList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
+        if(sharedPrefList.isNotEmpty()){
 
-                val index = str[0].toInt()
+            for(i in 0 until sharedPrefList.size){
+                val str = sharedPrefList[i].split(" ")
+
+                //str[0] : viewpager position / str[1] : className / str[2] : credit / str[3] : grade / str[4] : category / str[5] : retakeGrade
+                val tab_index = str[0].toInt()
                 val className = str[1]
                 val credit = str[2].toInt()
                 val grade = str[3].toFloat()
@@ -69,15 +71,17 @@ class MypageFragment : Fragment() {
                 }
                 val retakeGrade = str[5].toFloat()
 
-                saveGPA[index].add(MyPage_item(className, credit, grade, category, retakeGrade))
+                saveGPA[tab_index].add(MyPage_item(className, credit, grade, category, retakeGrade))
             }
+
+            //Log.d("saveLog",saveGPA.toString())
         }
+
 
         ////////////////////////////////학점 추가하기 버튼 리스너////////////////////////////////////
         val listener = object : MyPage_ViewPagerAdapter.MyPageEventListener{
             override fun addGrade(view: View, position: Int) {
 
-                var temp = MyPage_item("과목명",3,2.5.toFloat(),true,3.5.toFloat())
                 val dialogView = layoutInflater.inflate(R.layout.add_dialog,null)
                 val et_className = dialogView.findViewById<EditText>(R.id.et_className)
                 val spinner_credit = dialogView.findViewById<Spinner>(R.id.spinner_credit)
@@ -106,28 +110,23 @@ class MypageFragment : Fragment() {
                                 8-> tempGrade = 0.toFloat()
                                 9-> tempGrade = 10.toFloat()
                             }
-                            var tempCategory = true
+                            var tempCategory = false
                             when(spinner_category.selectedItemPosition){
-                                0->true
-                                1->false
+                                0->tempCategory = true
+                                1->tempCategory = false
                             }
 
-                            temp = MyPage_item(et_className.text.toString(), (spinner_credit.selectedItemPosition+1), tempGrade, tempCategory,tempGrade)
-                            saveGPA[position].add(temp)
+                            //dialog에 작성한 과목 정보를 saveGPA에 추가
+                            saveGPA[position].add(MyPage_item(et_className.text.toString(), (spinner_credit.selectedItemPosition+1), tempGrade, tempCategory,tempGrade))
 
                             //MyPage_item 객체를 하나의 String으로 만들어서 sharedpreference에 저장
-                            var str = position.toString() + " " + et_className.text.toString() + " " + (spinner_credit.selectedItemPosition+1).toString() +  " " + tempGrade.toString() +  " " + tempCategory.toString() +  " " + tempGrade.toString()
-                            tempList.add(str)
-                            MySharedPreferences(requireContext()).setStringArrayPref(SETTINGS_PLAYER_JSON, tempList)
+                            sharedPrefList.add(position.toString() + " " + et_className.text.toString() + " " + (spinner_credit.selectedItemPosition+1).toString() +  " " + tempGrade.toString() +  " " + tempCategory.toString() +  " " + tempGrade.toString())
+                            App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON, sharedPrefList)
 
                             Toast.makeText(requireContext(), "${et_className.text}과목이 추가 되었습니다.",Toast.LENGTH_SHORT).show()
 
-//                        tempList = MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON)!!
-//                        if(tempList != null){
-//                            for (value in tempList) {
-//                                Log.d("TAG", "Get json : $value")
-//                            }
-//                        }
+                            val ft = fragmentManager!!.beginTransaction()
+                            ft.detach(this@MypageFragment).attach(this@MypageFragment).commit()
                         }
                     }
                     .setNegativeButton("취소"){
@@ -137,31 +136,6 @@ class MypageFragment : Fragment() {
                 builder.show()
 
             }
-
-            override fun onChangeCallback2(
-                view: View,
-                itemlist: ArrayList<ArrayList<MyPage_item>>
-            ) {
-                saveGPA = itemlist
-                //MySharedPreferences(requireContext()).prefs.edit().clear().commit()
-
-                for(i in 0 until saveGPA.size){
-                    var ttemplist = ArrayList<String>()
-                    for(j in 0 until saveGPA[i].size){
-                        var str = i.toString() + " " + saveGPA[i][j].className + " " + saveGPA[i][j].credit.toString() +  " " + saveGPA[i][j].grade.toString() +  " " + saveGPA[i][j].category.toString() +  " " + saveGPA[i][j].retakeGrade.toString()
-                        ttemplist.add(str)
-                        MySharedPreferences(requireContext()).setStringArrayPref(SETTINGS_PLAYER_JSON, ttemplist)
-                    }
-                    //ttemplist.clear()
-                }
-                //Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
-                MySharedPreferences(requireContext()).prefs.edit().commit()
-                //Log.d("tag",MySharedPreferences(requireContext()).getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
-
-                //전체 학점 평균 재 계산해서 반영
-                MySharedPreferences(requireContext()).setTotalGPA(Calculator().totalCalculate(requireContext(),saveGPA))
-            }
-
         }
 
         mypage_viewpager.adapter = MyPage_ViewPagerAdapter(activity!!.applicationContext, saveGPA,listener)

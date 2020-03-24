@@ -39,20 +39,20 @@ class MyPage_RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val data = items.get(position)
+        val data = items[position]
         holder.item_className.text =  data.className
         holder.item_credit.text = data.credit.toString()
         holder.item_grade.text = data.grade.toString()
-
+        when(data.grade){
+            10.toFloat() -> holder.item_grade.text = "P"
+            else ->  holder.item_grade.text = data.grade.toString()
+        }
         when(data.category){
             true -> holder.item_category.text = "전공"
             false -> holder.item_category.text = "교양"
         }
 
         if(data.grade >= 3.0){
-            if(data.grade == 10.toFloat()){
-                holder.item_grade.text = "P"
-            }
             holder.item_retakeGrade.visibility = GONE
             holder.item_retakeGrade_not.visibility = VISIBLE
         }else{
