@@ -1,6 +1,7 @@
 package com.example.grade_calculator.MyPage
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,8 @@ class MyPage_ViewPagerAdapter(
 //                        App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON, strList)
 //                    }
 //                }
+ //               Log.d("log_itemlist",App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
+
             }
         }
 
