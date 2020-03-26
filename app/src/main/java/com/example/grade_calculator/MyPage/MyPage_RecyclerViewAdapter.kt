@@ -42,13 +42,13 @@ class MyPage_RecyclerViewAdapter(
         holder.item_className.text =  data.className
         holder.item_credit.text = data.credit.toString()
         holder.item_grade.text = data.grade.toString()
-        when(data.grade){
-            10.toFloat() -> holder.item_grade.text = "P"
-            else ->  holder.item_grade.text = data.grade.toString()
+        holder.item_grade.text = when(data.grade){
+            10.toFloat() -> "P"
+            else -> data.grade.toString()
         }
-        when(data.category){
-            true -> holder.item_category.text = "전공"
-            false -> holder.item_category.text = "교양"
+        holder.item_category.text  = when(data.category){
+            true -> "전공"
+            false -> "교양"
         }
 
         if(data.grade >= 3.0){
@@ -60,34 +60,17 @@ class MyPage_RecyclerViewAdapter(
                 //spinner 이용해서 재수강 성적 받고 다시 계산
             }else{
                 //다시 계산하고 리사이클러 뷰 갱신
-                when(data.retakeGrade){
-                    4.5.toFloat()->{
-                        holder.item_retakeGrade.text = "A+"
-                    }
-                    4.0.toFloat()->{
-                        holder.item_retakeGrade.text = "A0"
-                    }
-                    3.5.toFloat()->{
-                        holder.item_retakeGrade.text = "B+"
-                    }
-                    3.0.toFloat()->{
-                        holder.item_retakeGrade.text = "B0"
-                    }
-                    2.5.toFloat()->{
-                        holder.item_retakeGrade.text = "C+"
-                    }
-                    2.0.toFloat()->{
-                        holder.item_retakeGrade.text = "C0"
-                    }
-                    1.5.toFloat()->{
-                        holder.item_retakeGrade.text = "D+"
-                    }
-                    1.0.toFloat()->{
-                        holder.item_retakeGrade.text = "D0"
-                    }
-                    10.toFloat()->{
-                        holder.item_retakeGrade.text = "P"
-                    }
+                holder.item_retakeGrade.text = when(data.retakeGrade){
+                    4.5.toFloat() -> "A+"
+                    4.0.toFloat() -> "A0"
+                    3.5.toFloat() -> "B+"
+                    3.0.toFloat() -> "B0"
+                    2.5.toFloat() -> "C+"
+                    2.0.toFloat() -> "C0"
+                    1.5.toFloat() -> "D+"
+                    1.0.toFloat() -> "D0"
+                    10.toFloat() -> "P"
+                    else -> "ER"
                 }
             }
         }
@@ -96,35 +79,17 @@ class MyPage_RecyclerViewAdapter(
         holder.item_retakeGrade.setOnClickListener {
             val popupMenu = PopupMenu(context, it)
             popupMenu.setOnMenuItemClickListener {
-                when(it.itemId){
-                    R.id.aa->{
-                        items[position].retakeGrade = 4.5.toFloat()
-                    }
-                    R.id.a0->{
-                        items[position].retakeGrade = 4.0.toFloat()
-                    }
-                    R.id.bb->{
-                        items[position].retakeGrade = 3.5.toFloat()
-                    }
-                    R.id.b0->{
-                        items[position].retakeGrade = 3.0.toFloat()
-                    }
-                    R.id.cc->{
-                        items[position].retakeGrade = 2.5.toFloat()
-                    }
-                    R.id.c0->{
-                        items[position].retakeGrade = 2.0.toFloat()
-                    }
-                    R.id.dd->{
-                        items[position].retakeGrade = 1.5.toFloat()
-                    }
-                    R.id.d0->{
-                        items[position].retakeGrade = 1.0.toFloat()
-                    }
-                    R.id.p->{
-                        items[position].retakeGrade = 10.toFloat()
-                    }
-                    else -> false
+                items[position].retakeGrade = when(it.itemId){
+                    R.id.aa -> 4.5.toFloat()
+                    R.id.a0 -> 4.0.toFloat()
+                    R.id.bb -> 3.5.toFloat()
+                    R.id.b0 -> 3.0.toFloat()
+                    R.id.cc -> 2.5.toFloat()
+                    R.id.c0 -> 2.0.toFloat()
+                    R.id.dd -> 1.5.toFloat()
+                    R.id.d0 -> 1.0.toFloat()
+                    R.id.p -> 10.toFloat()
+                    else -> -1.toFloat()
                 }
                 notifyDataSetChanged()
                 listener.onChangeCallback(holder.itemView, items)

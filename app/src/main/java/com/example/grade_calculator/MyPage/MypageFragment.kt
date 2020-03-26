@@ -61,11 +61,10 @@ class MypageFragment : Fragment() {
                 val className = str[1]
                 val credit = str[2].toInt()
                 val grade = str[3].toFloat()
-                var category:Boolean
-                when(str[4]){
-                    "true" -> category = true
-                    "false" -> category = false
-                    else -> category = false
+                val category = when(str[4]){
+                    "true" -> true
+                    "false" -> false
+                    else -> false
                 }
                 val retakeGrade = str[5].toFloat()
 
@@ -95,23 +94,23 @@ class MypageFragment : Fragment() {
                         if(et_className.text.length < 2){
                             Toast.makeText(requireContext(),"과목명을 두 글자 이상 입력해주세요", Toast.LENGTH_SHORT).show()
                         }else{
-                            var tempGrade:Float = 0.toFloat()
-                            when(spinner_grade.selectedItemPosition){
-                                0-> tempGrade = 4.5.toFloat()
-                                1-> tempGrade = 4.0.toFloat()
-                                2-> tempGrade = 3.5.toFloat()
-                                3-> tempGrade = 3.0.toFloat()
-                                4-> tempGrade = 2.5.toFloat()
-                                5-> tempGrade = 2.0.toFloat()
-                                6-> tempGrade = 1.5.toFloat()
-                                7-> tempGrade = 1.0.toFloat()
-                                8-> tempGrade = 0.toFloat()
-                                9-> tempGrade = 10.toFloat()
+                            val tempGrade:Float = when(spinner_grade.selectedItemPosition){
+                                0-> 4.5.toFloat()
+                                1-> 4.0.toFloat()
+                                2-> 3.5.toFloat()
+                                3-> 3.0.toFloat()
+                                4-> 2.5.toFloat()
+                                5-> 2.0.toFloat()
+                                6-> 1.5.toFloat()
+                                7-> 1.0.toFloat()
+                                8-> 0.toFloat()
+                                9-> 10.toFloat()
+                                else -> -1.toFloat()
                             }
-                            var tempCategory = false
-                            when(spinner_category.selectedItemPosition){
-                                0->tempCategory = true
-                                1->tempCategory = false
+                            val tempCategory = when(spinner_category.selectedItemPosition){
+                                0 -> true
+                                1 -> false
+                                else -> false
                             }
 
                             //dialog에 작성한 과목 정보를 saveGPA에 추가
@@ -141,31 +140,16 @@ class MypageFragment : Fragment() {
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
         TabLayoutMediator(tabLayout, mypage_viewpager){
             tab, position ->
-            when(position){
-                0->{
-                    tab.text = "1학년 1학기"
-                }
-                1->{
-                    tab.text = "1학년 2학기"
-                }
-                2->{
-                    tab.text = "2학년 1학기"
-                }
-                3->{
-                    tab.text = "2학년 2학기"
-                }
-                4->{
-                    tab.text = "3학년 1학기"
-                }
-                5->{
-                    tab.text = "3학년 2학기"
-                }
-                6->{
-                    tab.text = "4학년 1학기"
-                }
-                7->{
-                    tab.text = "4학년 2학기"
-                }
+            tab.text = when(position){
+                0 -> "1학년 1학기"
+                1 -> "1학년 2학기"
+                2 -> "2학년 1학기"
+                3 -> "2학년 2학기"
+                4 -> "3학년 1학기"
+                5 -> "3학년 2학기"
+                6 -> "4학년 1학기"
+                7 -> "4학년 2학기"
+                else ->"ER"
             }
         }.attach()
 
