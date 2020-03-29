@@ -53,7 +53,7 @@ class MypageFragment : Fragment() {
         sharedPrefList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
         if(sharedPrefList.isNotEmpty()){
 
-            for(i in 0 until sharedPrefList.size){
+            for(i in sharedPrefList.indices){
                 val str = sharedPrefList[i].split(" ")
 
                 //str[0] : viewpager position / str[1] : className / str[2] : credit / str[3] : grade / str[4] : category / str[5] : retakeGrade
@@ -117,7 +117,13 @@ class MypageFragment : Fragment() {
                             saveGPA[position].add(MyPage_item(position, et_className.text.toString(), (spinner_credit.selectedItemPosition+1), tempGrade, tempCategory,tempGrade))
 
                             //MyPage_item 객체를 하나의 String으로 만들어서 sharedpreference에 저장
-                            sharedPrefList.add(position.toString() + " " + et_className.text.toString() + " " + (spinner_credit.selectedItemPosition+1).toString() +  " " + tempGrade.toString() +  " " + tempCategory.toString() +  " " + tempGrade.toString())
+                            sharedPrefList.clear()
+                            for(k in saveGPA.indices){
+                                for(j in saveGPA[k].indices){
+                                    sharedPrefList.add(saveGPA[k][j].semester.toString() + " " + saveGPA[k][j].className + " " + saveGPA[k][j].credit.toString() + " " + saveGPA[k][j].grade.toString() + " " + saveGPA[k][j].category.toString() + " " + saveGPA[k][j].retakeGrade.toString())
+                                }
+                            }
+
                             App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON, sharedPrefList)
 
                             Toast.makeText(requireContext(), "${et_className.text}과목이 추가 되었습니다.",Toast.LENGTH_SHORT).show()

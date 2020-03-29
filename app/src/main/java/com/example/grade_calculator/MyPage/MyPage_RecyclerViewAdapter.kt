@@ -20,7 +20,7 @@ class MyPage_RecyclerViewAdapter(
 ): RecyclerView.Adapter<MyPage_RecyclerViewAdapter.ViewHolder>(){
 
     interface RecyclerViewAdapterEventListener{
-        fun onChangeCallback(view: View, items: ArrayList<MyPage_item>)
+        fun onChangeCallback(view: View, items: ArrayList<MyPage_item>, index:Int)
     }
 
     override fun onCreateViewHolder(
@@ -92,7 +92,8 @@ class MyPage_RecyclerViewAdapter(
                     else -> -1.toFloat()
                 }
                 notifyDataSetChanged()
-                listener.onChangeCallback(holder.itemView, items)
+                //Log.d("tag_recycler",items.toString())
+                listener.onChangeCallback(holder.itemView, items, position)
                 true
             }
             popupMenu.inflate(R.menu.popupmenu_retake)
