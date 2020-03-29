@@ -28,22 +28,23 @@ class SettingFragment : Fragment(){
     fun init(){
 
         //졸업 기준 학점
-        var graduateCredit = MySharedPreferences(requireContext()).getGraduate()
+        var graduateCredit = App.prefs.getGraduate()
         //졸업 전공 기준 학점
-        var graduateMajorCredit = MySharedPreferences(requireContext()).getMajorGraduate()
+        var graduateMajorCredit = App.prefs.getMajorGraduate()
         //목표 평점
-        var goalGPA = MySharedPreferences(requireContext()).getUserGoal()
+        var goalGPA = App.prefs.getUserGoal()
+        //현재 이수한 학점(전체)
+        val nowCredit = App.prefs.getTotalCredit()
+        //현재 이수한 패논패 과목 학점
+        val nowCredit_P = App.prefs.getTotalCredit_P()
+        //현재 평점
+        val nowGPA = App.prefs.getTotalGPA()
 
         tv_graduate_credit.text = graduateCredit.toString()
         tv_graduate_major_credit.text = graduateMajorCredit.toString()
         tv_goalGPA.text = goalGPA.toString()
-        tv_rest_credit.text = (graduateCredit - MySharedPreferences(requireContext()).getTotalCredit()).toString()
-
-        val nowGPA = MySharedPreferences(requireContext()).getTotalGPA()
+        tv_rest_credit.text = (graduateCredit - nowCredit).toString()
         tv_nowGPA.text = nowGPA.toString()
-
-        val nowCredit = MySharedPreferences(requireContext()).getTotalCredit()
-        val nowCredit_P = MySharedPreferences(requireContext()).getTotalCredit_P()
         tv_needGPA.text= Calculator().needGPA_Calculate(graduateCredit, nowCredit, nowCredit_P, goalGPA, nowGPA).toString()
     }
 

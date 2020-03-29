@@ -11,6 +11,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.grade_calculator.App
+import com.example.grade_calculator.Calculator
 import com.example.grade_calculator.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -103,8 +104,8 @@ class MypageFragment : Fragment() {
                                 5-> 2.0.toFloat()
                                 6-> 1.5.toFloat()
                                 7-> 1.0.toFloat()
-                                8-> 0.toFloat()
-                                9-> 10.toFloat()
+                                8-> 0.toFloat()         //F
+                                9-> 10.toFloat()        //P(패논패 과목)
                                 else -> -1.toFloat()
                             }
                             val tempCategory = when(spinner_category.selectedItemPosition){
@@ -126,6 +127,20 @@ class MypageFragment : Fragment() {
 
                             App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON, sharedPrefList)
 
+                            //전체 수강 학점 저장
+                            val totalCredit = App.prefs.getTotalCredit() + (spinner_credit.selectedItemPosition+1)
+                            App.prefs.setTotalCredit(totalCredit)
+
+                            //패논패 과목일 경우 패논패 과목 이수 학점만 따로 저장
+                            if(tempGrade == 10.toFloat()){
+                               val totalCredit_P = App.prefs.getTotalCredit_P() + (spinner_credit.selectedItemPosition+1)
+                                App.prefs.setTotalCredit_P(totalCredit_P)
+                            }
+
+                            //현재 평점 저장
+                            App.prefs.setTotalGPA(Calculator().totalCalculate(saveGPA))
+
+                            //과목 추가 메세지 출력 및 프레그먼트 교체
                             Toast.makeText(requireContext(), "${et_className.text}과목이 추가 되었습니다.",Toast.LENGTH_SHORT).show()
 
                             val ft = fragmentManager!!.beginTransaction()

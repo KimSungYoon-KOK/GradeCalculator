@@ -62,7 +62,7 @@ class FirststartActivity : AppCompatActivity() {
                     }
 
                     if(floatFlag) {
-                        var goal = str.toFloat()
+                        val goal = str.toFloat()
                         if (goal !in 0.0..4.5) {
                             Toast.makeText(this, "0.0 ~ 4.5 사이의 숫자만 입력해주세요", Toast.LENGTH_SHORT)
                                 .show()

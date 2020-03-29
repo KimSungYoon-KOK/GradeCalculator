@@ -20,15 +20,17 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setProgressBar()
+        val nowGPA = App.prefs.getTotalGPA()
+        val goalGPA = App.prefs.getUserGoal()
+        setProgressBar(nowGPA, goalGPA)
     }
 
 
-    fun setProgressBar() {
+    fun setProgressBar(nowGPA: Float, goalGPA: Float) {
         val animationDuration = 2500 // 2500ms = 2,5s
         progressBar.setProgressWithAnimation(
             //퍼센테이지
-            (nowGPA / goalGPA * 100).toFloat(),
+            (nowGPA / goalGPA * 100),
             animationDuration
         ) // Default duration = 1500ms
 

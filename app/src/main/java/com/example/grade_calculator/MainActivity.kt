@@ -7,11 +7,6 @@ import androidx.fragment.app.FragmentManager
 import com.example.grade_calculator.MyPage.MypageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-val nowGPA = 3.16
-val goalGPA = 3.5
-
-
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

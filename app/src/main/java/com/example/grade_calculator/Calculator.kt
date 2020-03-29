@@ -61,7 +61,7 @@ class Calculator {
         return semesterGrade.toString()
     }
 
-    fun totalCalculate(context:Context, itemlist : ArrayList<ArrayList<MyPage_item>>):Float{
+    fun totalCalculate(itemlist : ArrayList<ArrayList<MyPage_item>>):Float{
 
         var credit = 0
         var credit_P = 0
@@ -84,22 +84,16 @@ class Calculator {
             grade = round(grade)/100
         }
 
-        MySharedPreferences(context).setTotalCredit(credit)
-        MySharedPreferences(context).setTotalCredit_P(credit-credit_P)
-
         return grade
     }
 
     fun needGPA_Calculate(graduateCredit: Int, nowCredit: Int, nowCredit_P: Int,goalGPA: Float, nowGPA: Float):Float{
 
-        val result = graduateCredit - nowCredit_P
-        var goal = goalGPA * result
-        val now = nowGPA * (nowCredit-nowCredit_P)
+        val goal = (graduateCredit - nowCredit_P) * goalGPA
+        val now = (nowCredit - nowCredit_P) * nowGPA
+        val rest = graduateCredit - nowCredit
 
-        goal = now - goal
-        val need = goal/(result-nowCredit)
-
-        return need
+        return (goal - now)/rest
     }
 
 
