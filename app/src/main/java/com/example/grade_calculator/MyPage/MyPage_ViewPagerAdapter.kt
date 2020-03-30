@@ -4,13 +4,17 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grade_calculator.App
 import com.example.grade_calculator.Calculator
 import com.example.grade_calculator.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MyPage_ViewPagerAdapter(
     val c: Context,
@@ -22,7 +26,6 @@ class MyPage_ViewPagerAdapter(
 
     interface MyPageEventListener{
         fun addGrade(view:View, position: Int)
-        //fun onChangeCallback2(view:View, itemlist: ArrayList<ArrayList<MyPage_item>>)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,36 +46,101 @@ class MyPage_ViewPagerAdapter(
         holder.recyclerView.layoutManager = layoutManager
 
         val listener = object : MyPage_RecyclerViewAdapter.RecyclerViewAdapterEventListener{
-            override fun onChangeCallback(view: View, items: ArrayList<MyPage_item>, index: Int) {
+            override fun onChangeCallback(items: ArrayList<MyPage_item>, index: Int, flag:Int) {
                 val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
                 holder.semester_status.text = str
 
                 val dataList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
 
-                //Log.d("tag_dataList_before", dataList.toString())
+                Log.d("tag_dataList_before", dataList.toString())
 
                 for(i in dataList.indices) {
                     val data = dataList[i].split(" ")
 
-                    if (data[1] == items[index].className && data[3].toFloat() == items[index].grade) {
-                        dataList[i] =
-                            items[index].semester.toString() + " " + items[index].className + " " + items[index].credit.toString() + " " + items[index].grade.toString() + " " + items[index].category.toString() + " " + items[index].retakeGrade.toString()
+                    if(flag == 1){
+                        if (data[1] == items[index].className && data[3].toFloat() == items[index].grade) {
+                            dataList[i] =
+                                items[index].semester.toString() + " " + items[index].className + " " + items[index].credit.toString() + " " + items[index].grade.toString() + " " + items[index].category.toString() + " " + items[index].retakeGrade.toString()
+                        }
+                    }else{
+                        if(data[0].toInt() == items[0].semester){
+                            dataList.removeAt(i+index)
+                            break
+                        }
                     }
                 }
 
-                //Log.d("tag_dataList_after", dataList.toString())
                 App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON,dataList)
 
-                //Log.d("tag_dataList_shared", App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON).toString())
+
+                //데이터 리스트 갱신
+                val saveGPA:ArrayList<ArrayList<MyPage_item>> = ArrayList()
+                for(i in 0..7){
+                    val temp = ArrayList<MyPage_item>()
+                    saveGPA.add(temp)
+                }
+
+                val sharedPrefList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
+                if(sharedPrefList.isNotEmpty()){
+
+                    for(i in sharedPrefList.indices){
+                        val str = sharedPrefList[i].split(" ")
+
+                        //str[0] : viewpager position / str[1] : className / str[2] : credit / str[3] : grade / str[4] : category / str[5] : retakeGrade
+                        val tab_index = str[0].toInt()
+                        val className = str[1]
+                        val credit = str[2].toInt()
+                        val grade = str[3].toFloat()
+                        val category = when(str[4]){
+                            "true" -> true
+                            "false" -> false
+                            else -> false
+                        }
+                        val retakeGrade = str[5].toFloat()
+
+                        saveGPA[tab_index].add(MyPage_item(tab_index, className, credit, grade, category, retakeGrade))
+                    }
+                }
+
+                var nowCredit = 0               //현재 이수한 학점(전체)
+                var nowCredit_P = 0             //현재 이수한 패논패 과목 학점
+                for(i in saveGPA.indices){
+                    for(j in saveGPA[i].indices){
+                        nowCredit += saveGPA[i][j].credit
+
+                        if(saveGPA[i][j].grade == 10.toFloat())
+                            nowCredit_P += saveGPA[i][j].credit
+                    }
+                }
+                App.prefs.setTotalCredit(nowCredit)
+                App.prefs.setTotalCredit_P(nowCredit_P)
+
+                //현재 평점
+                val nowGPA = Calculator().totalCalculate(saveGPA)
+                App.prefs.setTotalGPA(nowGPA)
             }
         }
 
         adapter = MyPage_RecyclerViewAdapter(c, listener, itemlist[position])
         holder.recyclerView.adapter = adapter
 
+        // 밀어서 아이템 삭제 구현
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return true }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                // Adapter에 아이템 삭제 요청
+                adapter.removeTask(viewHolder.adapterPosition)
+            }
+        }).apply {
+                // ItemTouchHelper에 RecyclerView 설정
+                attachToRecyclerView(holder.recyclerView)
+            }
+
+
         holder.addBtn.setOnClickListener {
             addListener.addGrade(it, position)
         }
+
 
         val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
         holder.semester_status.text = str
@@ -82,13 +150,12 @@ class MyPage_ViewPagerAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var semester_status:TextView
         var recyclerView: RecyclerView
-        var addBtn:Button
+        var addBtn:TextView
 
         init{
             semester_status = itemView.findViewById(R.id.tv_semester_status)
             recyclerView = itemView.findViewById(R.id.my_page_recyclerview)
             addBtn = itemView.findViewById(R.id.addBtn)
-
         }
     }
 

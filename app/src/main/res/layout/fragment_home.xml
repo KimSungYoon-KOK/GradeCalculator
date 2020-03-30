@@ -33,14 +33,6 @@
                 android:gravity="center"
                 android:layout_gravity="center"/>
 
-            <ImageView
-                android:id="@+id/settingBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_settings_black_24dp"
-                android:layout_gravity="end|center_vertical"
-                android:layout_margin="20dp"/>
-
         </LinearLayout>
 
 
@@ -51,18 +43,103 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:cpb_background_progressbar_color="@color/progressbar_background_color"
-            app:cpb_background_progressbar_width="5dp"
-            app:cpb_progressbar_color="@color/progressbar_color"
-            app:cpb_progressbar_width="10dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:cpb_background_progressbar_color="@color/progressbar_background_color"
+                app:cpb_background_progressbar_width="5dp"
+                app:cpb_progressbar_color="@color/progressbar_color"
+                app:cpb_progressbar_width="10dp"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/tv_nowGrede"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.5"
+                android:textSize="35sp"
+                android:textColor="@color/white"
+                android:layout_centerInParent="true"/>
+
+
+        </RelativeLayout>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop = "20dp"
+        android:paddingStart ="30dp"
+        android:paddingEnd ="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="잔여 학점"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_restCredit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="test"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="필요 평균 평점"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_needgrade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="test"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="300dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/textView2"
@@ -17,9 +20,8 @@
 
         <EditText
             android:id="@+id/et_className"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:ems="10"
             android:inputType="text" />
     </LinearLayout>
@@ -27,6 +29,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
@@ -37,16 +40,16 @@
 
         <Spinner
             android:id="@+id/spinner_credit"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:entries="@array/credit"
-            android:layout_weight="1" />
+            android:entries="@array/credit" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/textView4"
@@ -56,16 +59,16 @@
 
         <Spinner
             android:id="@+id/spinner_grade"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:entries="@array/grade"
-            android:layout_weight="1" />
+            android:entries="@array/grade" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/textView5"
@@ -75,10 +78,9 @@
 
         <Spinner
             android:id="@+id/spinner_category"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:entries="@array/category"
-            android:layout_weight="1" />
+            android:entries="@array/category" />
     </LinearLayout>
 
 </LinearLayout>

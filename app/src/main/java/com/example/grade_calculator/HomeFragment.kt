@@ -23,6 +23,7 @@ class HomeFragment : Fragment() {
         val nowGPA = App.prefs.getTotalGPA()
         val goalGPA = App.prefs.getUserGoal()
         setProgressBar(nowGPA, goalGPA)
+        initText()
     }
 
 
@@ -34,5 +35,12 @@ class HomeFragment : Fragment() {
             animationDuration
         ) // Default duration = 1500ms
 
+    }
+
+    fun initText(){
+        tv_nowGrede.text = App.prefs.getTotalGPA().toString()
+        tv_restCredit.text = ((App.prefs.getGraduate() - App.prefs.getTotalCredit()).toString() + " 학점")
+        val temp = Calculator().needGPA_Calculate(App.prefs.getGraduate(), App.prefs.getTotalCredit(), App.prefs.getTotalCredit_P(), App.prefs.getUserGoal(), App.prefs.getTotalGPA())
+        tv_needgrade.text = (Math.round(temp*100)/100.0).toString()
     }
 }

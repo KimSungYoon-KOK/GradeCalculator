@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +21,7 @@ class MyPage_RecyclerViewAdapter(
 ): RecyclerView.Adapter<MyPage_RecyclerViewAdapter.ViewHolder>(){
 
     interface RecyclerViewAdapterEventListener{
-        fun onChangeCallback(view: View, items: ArrayList<MyPage_item>, index:Int)
+        fun onChangeCallback(items: ArrayList<MyPage_item>, index:Int, flag:Int)
     }
 
     override fun onCreateViewHolder(
@@ -93,7 +94,7 @@ class MyPage_RecyclerViewAdapter(
                 }
                 notifyDataSetChanged()
                 //Log.d("tag_recycler",items.toString())
-                listener.onChangeCallback(holder.itemView, items, position)
+                listener.onChangeCallback(items, position,1)
                 true
             }
             popupMenu.inflate(R.menu.popupmenu_retake)
@@ -112,7 +113,6 @@ class MyPage_RecyclerViewAdapter(
             }
 
         }
-
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -132,4 +132,13 @@ class MyPage_RecyclerViewAdapter(
             item_retakeGrade_not = itemView.findViewById(R.id.tv_retakeGrade_not)
         }
     }
+
+    // 내부 데이터 값 제거
+    fun removeTask(position: Int) {
+        items.removeAt(position)
+        Log.d("tag_items", items.toString())
+        listener.onChangeCallback(items, position,2)
+        notifyDataSetChanged()
+    }
+
 }

@@ -9,4 +9,5 @@
 
     <color name="progressbar_background_color">#FFFFFF</color>
     <color name="progressbar_color">#BAE8E3</color>
+    <color name="falseBtn">#BAE8E3</color>
 </resources>

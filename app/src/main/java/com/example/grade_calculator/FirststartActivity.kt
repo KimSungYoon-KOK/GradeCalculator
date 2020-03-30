@@ -22,62 +22,43 @@ class FirststartActivity : AppCompatActivity() {
             //비어 있는 칸이 있는지 확인
             if(editText.text.isNotEmpty() && editText2.text.isNotEmpty() && editText3.text.isNotEmpty()){
                 //졸업 기준 학점
-                var str = editText.text.toString()
-                for(i in editText.text.indices){
-                    //editText의 text가 하나라도 숫자가 아니라면
-                    if(str[i] !in '0'..'9'){
-                        flag1 = false
-                        break
+                val graduate = editText.text.toString()
+                if(graduate.toIntOrNull() != null){
+                    when(graduate.toInt()){
+                        in 0..200 -> flag1 = true
                     }
-                    flag1 = true
                 }
 
                 //전공 기준 학점
-                if(flag1){
-                    str = editText2.text.toString()
-                    for(i in editText2.text.indices){
-                        //editText의 text가 하나라도 숫자가 아니라면
-                        if(str[i] !in '0'..'9'){
-                            flag2 = false
-                            break
-                        }
-                        flag2 = true
+                val majorGraduate = editText2.text.toString()
+                if(majorGraduate.toIntOrNull() != null){
+                    when(majorGraduate.toInt()){
+                        in 0..200 -> flag2 = true
                     }
                 }
 
                 //목표 학점
-                if(flag1 && flag2){
-                    str = editText3.text.toString()
-                    var floatFlag = false
-                    for(i in editText3.text.indices){
-                        //editText의 text가 하나라도 숫자가 아니라면
-                        if(str[i] in '0'..'9'){
-                            flag3 = true
-                        }else if(str[i] == '.'){
-                            floatFlag = true
-                        }else{
-                            flag3 = false
-                            break
-                        }
-                    }
-
-                    if(floatFlag) {
-                        val goal = str.toFloat()
-                        if (goal !in 0.0..4.5) {
-                            Toast.makeText(this, "0.0 ~ 4.5 사이의 숫자만 입력해주세요", Toast.LENGTH_SHORT)
-                                .show()
-                        } else {
-                            //startActivity 안뜨게 sharedpreference 조정하기
-                            MySharedPreferences(this).setUserInfo(editText.text.toString().toInt(), editText2.text.toString().toInt(), editText3.text.toString().toFloat())
-                            //intent 넘기기
-                            val Intent = Intent(this, MainActivity::class.java)
-                            startActivity(Intent)
-                            finish()
-                        }
+                val goal = editText3.text.toString()
+                if(goal.toFloatOrNull() != null){
+                    when(goal.toFloat()){
+                        in 0.0..4.5 -> flag3 = true
                     }
                 }
 
-                Toast.makeText(this, "숫자만 입력해주세요",Toast.LENGTH_SHORT).show()
+                if(flag1 && flag2 && flag3){
+                    App.prefs.setUserInfo(graduate.toInt(),majorGraduate.toInt(),goal.toFloat())
+                    Toast.makeText(this,"졸업 이수 조건이 저장 되었습니다.",Toast.LENGTH_SHORT).show()
+
+                    //intent 넘기기
+                    val Intent = Intent(this, MainActivity::class.java)
+                    startActivity(Intent)
+                    finish()
+
+                }else if(!flag1 || !flag2 ){
+                    Toast.makeText(this,"0 ~ 200사이 숫자만 입력해 주세요", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this,"0.0 ~ 4.5사이 숫자만 입력해 주세요", Toast.LENGTH_SHORT).show()
+                }
             }
             else{
                 Toast.makeText(this, "빠짐 없이 입력해주세요",Toast.LENGTH_SHORT).show()

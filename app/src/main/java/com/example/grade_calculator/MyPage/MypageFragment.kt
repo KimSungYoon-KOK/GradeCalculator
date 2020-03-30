@@ -1,7 +1,9 @@
 package com.example.grade_calculator.MyPage
 
 import android.app.AlertDialog
+import android.graphics.Point
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -88,7 +90,7 @@ class MypageFragment : Fragment() {
 
                 val builder = AlertDialog.Builder(requireContext())
                 builder.setView(dialogView)
-                builder.setMessage("성적 추가")
+                builder.setTitle("과목을 추가합니다")
                     .setPositiveButton("추가"){
                         dialog, i ->
 
@@ -152,7 +154,6 @@ class MypageFragment : Fragment() {
                     }
                 builder.create()
                 builder.show()
-
             }
         }
 
