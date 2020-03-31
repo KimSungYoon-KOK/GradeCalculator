@@ -1,7 +1,6 @@
-package com.example.grade_calculator
+package com.kok.grade_calculator
 
-import android.content.Context
-import com.example.grade_calculator.MyPage.MyPage_item
+import com.kok.grade_calculator.MyPage.MyPage_item
 import kotlin.math.round
 
 class Calculator {

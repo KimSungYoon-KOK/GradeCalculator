@@ -1,4 +1,4 @@
-package com.example.grade_calculator.MyPage
+package com.kok.grade_calculator.MyPage
 
 import android.content.Context
 import android.util.Log
@@ -7,12 +7,11 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.grade_calculator.R
-import kotlinx.android.synthetic.main.mypage_item.view.*
+import com.kok.grade_calculator.App
+import com.kok.grade_calculator.R
 
 class MyPage_RecyclerViewAdapter(
     val context: Context,
@@ -133,10 +132,27 @@ class MyPage_RecyclerViewAdapter(
         }
     }
 
+    private val SETTINGS_PLAYER_JSON = "settings_item_json"
+
     // 내부 데이터 값 제거
     fun removeTask(position: Int) {
+
+
+        val dataList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
+
+        for(i in dataList.indices) {
+            val data = dataList[i].split(" ")
+
+            if (data[0].toInt() == items[position].semester) {
+                dataList.removeAt(i + position)
+                break
+            }
+        }
+
+        App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON,dataList)
+
         items.removeAt(position)
-        Log.d("tag_items", items.toString())
+
         listener.onChangeCallback(items, position,2)
         notifyDataSetChanged()
     }

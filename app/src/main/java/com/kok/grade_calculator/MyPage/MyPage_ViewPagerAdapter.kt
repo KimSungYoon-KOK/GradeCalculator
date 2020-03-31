@@ -1,20 +1,17 @@
-package com.example.grade_calculator.MyPage
+package com.kok.grade_calculator.MyPage
 
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.grade_calculator.App
-import com.example.grade_calculator.Calculator
-import com.example.grade_calculator.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kok.grade_calculator.App
+import com.kok.grade_calculator.Calculator
+import com.kok.grade_calculator.R
 
 class MyPage_ViewPagerAdapter(
     val c: Context,
@@ -50,27 +47,21 @@ class MyPage_ViewPagerAdapter(
                 val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
                 holder.semester_status.text = str
 
-                val dataList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
+                if(flag == 1){
+                    val dataList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
 
-                Log.d("tag_dataList_before", dataList.toString())
+                    for(i in dataList.indices) {
+                        val data = dataList[i].split(" ")
 
-                for(i in dataList.indices) {
-                    val data = dataList[i].split(" ")
 
-                    if(flag == 1){
                         if (data[1] == items[index].className && data[3].toFloat() == items[index].grade) {
                             dataList[i] =
                                 items[index].semester.toString() + " " + items[index].className + " " + items[index].credit.toString() + " " + items[index].grade.toString() + " " + items[index].category.toString() + " " + items[index].retakeGrade.toString()
                         }
-                    }else{
-                        if(data[0].toInt() == items[0].semester){
-                            dataList.removeAt(i+index)
-                            break
-                        }
                     }
-                }
 
-                App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON,dataList)
+                    App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON,dataList)
+                }
 
 
                 //데이터 리스트 갱신

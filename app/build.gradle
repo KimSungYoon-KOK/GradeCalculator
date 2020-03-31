@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
     defaultConfig {
-        applicationId "com.example.grade_calculator"
+        applicationId "com.kok.grade_calculator"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -19,6 +19,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".debug"
         }
     }
 }
@@ -43,4 +46,7 @@ dependencies {
 
     // View Pager
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    //addmob
+    implementation 'com.google.android.gms:play-services-ads:19.0.1'
 }

@@ -8,10 +8,18 @@
     tools:context=".FirststartActivity" >
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView99"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:text="학점 메이트를 사용하기 위한 기본 정보를 입력해주세요"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="학점 메이트"
         android:gravity="center"/>
 
@@ -22,18 +30,13 @@
         android:text="내 학점을 부탁해!"
         android:gravity="center"/>
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="설치해 주셔서 감사합니다."
-        android:gravity="center"/>
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:layout_marginBottom="7dp"
         android:gravity="center"
         android:text="졸업 전까지 총 몇학점을 이수해야 하나요?"/>
 
@@ -54,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="7dp"
         android:gravity="center"
         android:text="졸업 전까지 전공을 몇학점 이수해야 하나요?"/>
 
@@ -75,6 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="7dp"
         android:gravity="center"
         android:text="마지막으로 목표 학점을 알려주세요"/>
 
@@ -98,11 +103,14 @@
 
     <TextView
         android:id="@+id/startBtn"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_gravity="right"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:text="시작하기"/>
+        android:textSize="15sp"
+        android:text="시작하기"
+        android:background="@drawable/radius_btn"
+        android:textColor="@color/white"
+        android:layout_marginBottom="50dp"/>
 </LinearLayout>

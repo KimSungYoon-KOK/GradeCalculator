@@ -1,9 +1,8 @@
-package com.example.grade_calculator.MyPage
+package com.kok.grade_calculator.MyPage
 
 import android.app.AlertDialog
-import android.graphics.Point
+import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,11 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.grade_calculator.App
-import com.example.grade_calculator.Calculator
-import com.example.grade_calculator.R
+import com.kok.grade_calculator.App
+import com.kok.grade_calculator.Calculator
+import com.kok.grade_calculator.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_mypage.*
@@ -27,7 +28,6 @@ class MypageFragment : Fragment() {
     lateinit var saveGPA:ArrayList<ArrayList<MyPage_item>>          //학점 정보 저장하는 이차원 리스트
     lateinit var sharedPrefList:ArrayList<String>                   //sharedpreferences 저장시 사용하는 임시 리스트
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,9 +39,14 @@ class MypageFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         saveGPA = ArrayList()
         sharedPrefList = ArrayList()
         initViewPager()
+
+        //광고 추가
+        //MobileAds.initialize(requireContext()) {}
+        //adView.loadAd(AdRequest.Builder().build())
     }
 
     fun initViewPager(){
@@ -94,7 +99,13 @@ class MypageFragment : Fragment() {
                     .setPositiveButton("추가"){
                         dialog, i ->
 
-                        if(et_className.text.length < 2){
+                        val tempClassName = et_className.text.toString().split(" ")
+                        var strClassName = ""
+                        for(i in tempClassName.indices){
+                            strClassName += tempClassName[i]
+                        }
+
+                        if(strClassName.length < 2){
                             Toast.makeText(requireContext(),"과목명을 두 글자 이상 입력해주세요", Toast.LENGTH_SHORT).show()
                         }else{
                             val tempGrade:Float = when(spinner_grade.selectedItemPosition){
@@ -117,7 +128,7 @@ class MypageFragment : Fragment() {
                             }
 
                             //dialog에 작성한 과목 정보를 saveGPA에 추가
-                            saveGPA[position].add(MyPage_item(position, et_className.text.toString(), (spinner_credit.selectedItemPosition+1), tempGrade, tempCategory,tempGrade))
+                            saveGPA[position].add(MyPage_item(position, strClassName, (spinner_credit.selectedItemPosition+1), tempGrade, tempCategory,tempGrade))
 
                             //MyPage_item 객체를 하나의 String으로 만들어서 sharedpreference에 저장
                             sharedPrefList.clear()

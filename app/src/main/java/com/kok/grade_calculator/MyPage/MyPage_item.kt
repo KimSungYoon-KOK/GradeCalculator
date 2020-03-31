@@ -1,4 +1,4 @@
-package com.example.grade_calculator.MyPage
+package com.kok.grade_calculator.MyPage
 
 import android.os.Parcel
 import android.os.Parcelable

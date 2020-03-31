@@ -1,4 +1,4 @@
-package com.example.grade_calculator
+package com.kok.grade_calculator
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

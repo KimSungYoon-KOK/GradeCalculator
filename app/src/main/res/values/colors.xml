@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#a9a9a9</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#c3ebe1</color>
+    <color name="colorPrimaryDark">#98DDCB</color>
+    <color name="colorAccent">#98DDCB</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
 
 
     <color name="progressbar_background_color">#FFFFFF</color>
-    <color name="progressbar_color">#BAE8E3</color>
-    <color name="falseBtn">#BAE8E3</color>
+    <color name="progressbar_color">#98DDCB</color>
+    <color name="falseBtn">#98DDCB</color>
 </resources>

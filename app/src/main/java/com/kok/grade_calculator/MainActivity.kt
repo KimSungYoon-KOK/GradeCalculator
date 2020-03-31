@@ -1,10 +1,10 @@
-package com.example.grade_calculator
+package com.kok.grade_calculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.FragmentManager
-import com.example.grade_calculator.MyPage.MypageFragment
+import com.kok.grade_calculator.MyPage.MypageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
