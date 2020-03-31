@@ -31,8 +31,8 @@ class SettingFragment : Fragment(){
         initBtn()
 
         //광고 추가
-        //MobileAds.initialize(requireContext()) {}
-        //adView_setting.loadAd(AdRequest.Builder().build())
+        MobileAds.initialize(requireContext()) {}
+        adView_setting.loadAd(AdRequest.Builder().build())
     }
 
     fun init(){

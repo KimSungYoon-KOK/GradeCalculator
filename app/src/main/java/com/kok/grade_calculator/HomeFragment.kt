@@ -28,8 +28,8 @@ class HomeFragment : Fragment() {
         initText()
 
         //광고 추가
-        //MobileAds.initialize(requireContext()) {}
-        //adView_home.loadAd(AdRequest.Builder().build())
+        MobileAds.initialize(requireContext()) {}
+        adView_home.loadAd(AdRequest.Builder().build())
     }
 
 

@@ -45,8 +45,8 @@ class MypageFragment : Fragment() {
         initViewPager()
 
         //광고 추가
-        //MobileAds.initialize(requireContext()) {}
-        //adView.loadAd(AdRequest.Builder().build())
+        MobileAds.initialize(requireContext()) {}
+        adView.loadAd(AdRequest.Builder().build())
     }
 
     fun initViewPager(){
