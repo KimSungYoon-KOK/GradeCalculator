@@ -7,7 +7,7 @@
     <string name="title_setting">Setting</string>
     <string name="title_mypage">My Page</string>
 
-    <!--광고 di-->
+    <!--광고 id-->
     <string name="admob_app_id">ca-app-pub-9529195257619062~8732296441</string>
     <string name="banner_ad_unit_id">ca-app-pub-9529195257619062/4079214491</string>
     <string name="front_ad_unit_id">ca-app-pub-9529195257619062/7326881282</string>

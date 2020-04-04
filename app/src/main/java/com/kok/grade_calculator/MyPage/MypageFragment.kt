@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdListener
 import com.kok.grade_calculator.App
 import com.kok.grade_calculator.Calculator
 import com.kok.grade_calculator.R
@@ -18,6 +19,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_mypage.*
 
 
@@ -47,6 +49,35 @@ class MypageFragment : Fragment() {
         //광고 추가
         MobileAds.initialize(requireContext()) {}
         adView.loadAd(AdRequest.Builder().build())
+
+        // 광고가 제대로 로드 되는지 테스트 하기 위한 코드입니다.
+        adView_home.setAdListener(object : AdListener() {
+            override fun onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                Log.d("@@@", "onAdLoaded")
+            }
+
+            override fun onAdFailedToLoad(errorCode: Int) {
+                // Code to be executed when an ad request fails.
+                Log.d("@@@", "onAdFailedToLoad $errorCode")
+            }
+
+            override fun onAdOpened() {
+                // Code to be executed when an ad opens an overlay that covers the screen.
+            }
+
+            override fun onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            override fun onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            override fun onAdClosed() {
+                // Code to be executed when the user is about to return to the app after tapping on an ad.
+            }
+        })
     }
 
     fun initViewPager(){
