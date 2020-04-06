@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_setting.*
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_setting.*
 class SettingFragment : Fragment(){
 
     private val SETTINGS_PLAYER_JSON = "settings_item_json"
+    private lateinit var mInterstitialAd: InterstitialAd
 
        override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,41 +35,16 @@ class SettingFragment : Fragment(){
         init()
         initBtn()
 
-        //광고 추가
-        MobileAds.initialize(requireContext()) {}
-        adView_setting.loadAd(AdRequest.Builder().build())
-
-        // 광고가 제대로 로드 되는지 테스트 하기 위한 코드입니다.
-        adView_home.setAdListener(object : AdListener() {
-            override fun onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-                Log.d("@@@", "onAdLoaded")
-            }
-
-            override fun onAdFailedToLoad(errorCode: Int) {
-                // Code to be executed when an ad request fails.
-                Log.d("@@@", "onAdFailedToLoad $errorCode")
-            }
-
-            override fun onAdOpened() {
-                // Code to be executed when an ad opens an overlay that covers the screen.
-            }
-
-            override fun onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            override fun onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            override fun onAdClosed() {
-                // Code to be executed when the user is about to return to the app after tapping on an ad.
-            }
-        })
     }
 
     fun init(){
+
+        //전면 광고 initializer
+        mInterstitialAd = InterstitialAd(requireContext())
+        mInterstitialAd.adUnitId = "ca-app-pub-9529195257619062/7326881282"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+
+
 
         //졸업 기준 학점
         val graduateCredit = App.prefs.getGraduate()
@@ -92,6 +69,21 @@ class SettingFragment : Fragment(){
     }
 
     fun initBtn(){
+
+        mInterstitialAd.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                mInterstitialAd.loadAd(AdRequest.Builder().build())
+            }
+        }
+
+        //광고 시청 버튼
+        adsViewBtn.setOnClickListener {
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.show()
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.")
+            }
+        }
 
         editBtn.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.edit_dialog,null)
@@ -183,6 +175,7 @@ class SettingFragment : Fragment(){
 
             dialog.show()
         }
+
     }
 
 }

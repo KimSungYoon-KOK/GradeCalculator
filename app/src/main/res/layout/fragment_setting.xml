@@ -5,25 +5,6 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="vertical">
-
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/adView_setting"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id">
-        </com.google.android.gms.ads.AdView>
-
-
-    </LinearLayout>
-
-
-
     <TextView
         android:id="@+id/textView12"
         android:layout_width="match_parent"
@@ -198,18 +179,36 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/editBtn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginRight="30dp"
-        android:layout_gravity="right"
-        android:textSize="15sp"
-        android:text="수정하기"
-        android:background="@drawable/radius_btn"
-        android:textColor="@color/white"/>
+        android:orientation="horizontal"
+        android:gravity="right">
 
+        <TextView
+            android:id="@+id/adsViewBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/radius_btn"
+            android:padding="10dp"
+            android:text="광고보기"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/editBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/radius_btn"
+            android:padding="10dp"
+            android:text="수정하기"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
 
 
 </LinearLayout>

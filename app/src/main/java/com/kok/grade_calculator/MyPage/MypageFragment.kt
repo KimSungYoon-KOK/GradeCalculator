@@ -51,7 +51,7 @@ class MypageFragment : Fragment() {
         adView.loadAd(AdRequest.Builder().build())
 
         // 광고가 제대로 로드 되는지 테스트 하기 위한 코드입니다.
-        adView_home.setAdListener(object : AdListener() {
+        adView.setAdListener(object : AdListener() {
             override fun onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
                 Log.d("@@@", "onAdLoaded")
