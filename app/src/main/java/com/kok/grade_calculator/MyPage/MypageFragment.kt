@@ -1,8 +1,8 @@
 package com.kok.grade_calculator.MyPage
 
 import android.app.AlertDialog
-import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +19,8 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_mypage.*
+import kotlinx.android.synthetic.main.mypage_page.*
 
 
 class MypageFragment : Fragment() {
@@ -42,10 +42,11 @@ class MypageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        saveGPA = ArrayList()
-        sharedPrefList = ArrayList()
+        init()
         initViewPager()
+    }
 
+    fun init(){
         //광고 추가
         MobileAds.initialize(requireContext()) {}
         adView.loadAd(AdRequest.Builder().build())
@@ -78,9 +79,19 @@ class MypageFragment : Fragment() {
                 // Code to be executed when the user is about to return to the app after tapping on an ad.
             }
         })
+
+        saveGPA = ArrayList()
+        sharedPrefList = ArrayList()
     }
 
     fun initViewPager(){
+
+        ///////////////////////////// RecyclerView Height Setting /////////////////////////////
+        val resId = requireContext().resources.getIdentifier("navigation_bar_height","dimen","android")
+        val navigationBarHeight = requireContext().resources.getDimensionPixelSize(resId)
+        val dm = requireContext().resources.displayMetrics
+        val height = dm.heightPixels - (280 * (dm.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt() - navigationBarHeight      //280dp to px
+
 
         ////////////////////////////1학년 1학기 ~ 4학년 2학기까지 8개의 뷰페이저 생성/////////////////////////////
         for(i in 0..7){
@@ -199,7 +210,7 @@ class MypageFragment : Fragment() {
             }
         }
 
-        mypage_viewpager.adapter = MyPage_ViewPagerAdapter(activity!!.applicationContext, saveGPA, listener)
+        mypage_viewpager.adapter = MyPage_ViewPagerAdapter(requireContext(), saveGPA, listener, height)
 
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
         TabLayoutMediator(tabLayout, mypage_viewpager){

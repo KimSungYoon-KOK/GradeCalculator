@@ -86,6 +86,33 @@ class Calculator {
         return grade
     }
 
+    //재수강 후 학점 계산
+    fun retakeGPA(itemlist : ArrayList<ArrayList<MyPage_item>>):Float {
+
+        var credit = 0
+        var credit_P = 0
+        var grade = 0.toFloat()
+
+        for(i in 0 until  itemlist.size){
+            for(j in 0 until itemlist[i].size){
+                credit += itemlist[i][j].credit
+                if(itemlist[i][j].grade == 10.toFloat()){
+                    continue
+                }
+                credit_P += itemlist[i][j].credit
+                grade += itemlist[i][j].retakeGrade*itemlist[i][j].credit
+            }
+        }
+
+        if(credit_P != 0){
+            grade /= credit_P
+            grade *= 100
+            grade = round(grade)/100
+        }
+
+        return grade
+    }
+
     fun needGPA_Calculate(graduateCredit: Int, nowCredit: Int, nowCredit_P: Int,goalGPA: Float, nowGPA: Float):Float{
 
         val goal = (graduateCredit - nowCredit_P) * goalGPA

@@ -20,6 +20,7 @@ class MySharedPreferences(context: Context) {
     val PREF_TOTAL_GPA = "totalGPA"
     val PREF_TOTAL_CREDIT = "totalCredit"
     val PREF_TOTAL_CREDIT_P = "totalCredit_P"
+    val PREF_TOTAL_RETAKE_GPA = "retakeGPA"
 
 
     fun setStringArrayPref(
@@ -90,6 +91,12 @@ class MySharedPreferences(context: Context) {
         editor.apply()
     }
 
+    fun setRetakeGPA(retakeGPA: Float) {
+        val editor = prefs.edit()
+        editor.putFloat(PREF_TOTAL_RETAKE_GPA, retakeGPA)
+        editor.apply()
+    }
+
 
     // 저장된 정보 가져오기
     fun getGraduate(): Int {
@@ -118,6 +125,10 @@ class MySharedPreferences(context: Context) {
 
     fun getTotalCredit_P():Int{
         return prefs.getInt(PREF_TOTAL_CREDIT_P,0)
+    }
+
+    fun getRetakeGPA():Float {
+        return prefs.getFloat(PREF_TOTAL_RETAKE_GPA, 0.toFloat())
     }
 
 }

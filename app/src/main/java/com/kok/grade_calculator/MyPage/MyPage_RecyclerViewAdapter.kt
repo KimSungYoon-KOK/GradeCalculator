@@ -41,8 +41,15 @@ class MyPage_RecyclerViewAdapter(
         val data = items[position]
         holder.item_className.text =  data.className
         holder.item_credit.text = data.credit.toString()
-        holder.item_grade.text = data.grade.toString()
         holder.item_grade.text = when(data.grade){
+            4.5.toFloat() -> "A+"
+            4.0.toFloat() -> "A"
+            3.5.toFloat() -> "B+"
+            3.0.toFloat() -> "B"
+            2.5.toFloat() -> "C+"
+            2.0.toFloat() -> "C"
+            1.5.toFloat() -> "D+"
+            1.0.toFloat() -> "D"
             10.toFloat() -> "P"
             else -> data.grade.toString()
         }
@@ -55,23 +62,18 @@ class MyPage_RecyclerViewAdapter(
             holder.item_retakeGrade.visibility = GONE
             holder.item_retakeGrade_not.visibility = VISIBLE
         }else{
-            if(data.grade >= data.retakeGrade){
-                holder.item_retakeGrade.text = "선택"
-                //spinner 이용해서 재수강 성적 받고 다시 계산
-            }else{
-                //다시 계산하고 리사이클러 뷰 갱신
-                holder.item_retakeGrade.text = when(data.retakeGrade){
-                    4.5.toFloat() -> "A+"
-                    4.0.toFloat() -> "A0"
-                    3.5.toFloat() -> "B+"
-                    3.0.toFloat() -> "B0"
-                    2.5.toFloat() -> "C+"
-                    2.0.toFloat() -> "C0"
-                    1.5.toFloat() -> "D+"
-                    1.0.toFloat() -> "D0"
-                    10.toFloat() -> "P"
-                    else -> "ER"
-                }
+            holder.item_retakeGrade.text = when(data.retakeGrade){
+                4.5.toFloat() -> "A+"
+                4.0.toFloat() -> "A"
+                3.5.toFloat() -> "B+"
+                3.0.toFloat() -> "B"
+                2.5.toFloat() -> "C+"
+                2.0.toFloat() -> "C"
+                1.5.toFloat() -> "D+"
+                1.0.toFloat() -> "D"
+                0.0.toFloat() -> "F"
+                10.toFloat() -> "P"
+                else -> "ER"
             }
         }
 
@@ -154,6 +156,10 @@ class MyPage_RecyclerViewAdapter(
         items.removeAt(position)
 
         listener.onChangeCallback(items, position,2)
+        notifyDataSetChanged()
+    }
+
+    fun NoRemove(){
         notifyDataSetChanged()
     }
 

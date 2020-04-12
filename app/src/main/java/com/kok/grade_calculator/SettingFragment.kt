@@ -59,13 +59,15 @@ class SettingFragment : Fragment(){
         var nowCredit_P = App.prefs.getTotalCredit_P()
         //현재 평점
         val nowGPA = App.prefs.getTotalGPA()
+        //재수강 후 평점
+        val retakeGPA = App.prefs.getRetakeGPA()
 
         tv_graduate_credit.text = (graduateCredit.toString() + " 학점")
         tv_graduate_major_credit.text = (graduateMajorCredit.toString() + " 학점")
         tv_goalGPA.text = goalGPA.toString()
         tv_rest_credit.text = ((graduateCredit - nowCredit).toString() + " 학점")
         tv_nowGPA.text = nowGPA.toString()
-        tv_needGPA.text= Calculator().needGPA_Calculate(graduateCredit, nowCredit, nowCredit_P, goalGPA, nowGPA).toString()
+        tv_retakeGPA.text= retakeGPA.toString()
     }
 
     fun initBtn(){

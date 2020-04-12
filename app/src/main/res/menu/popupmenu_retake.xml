@@ -6,25 +6,25 @@
         android:title="A+"/>
     <item
         android:id="@+id/a0"
-        android:title="A0"/>
+        android:title="A"/>
     <item
         android:id="@+id/bb"
         android:title="B+"/>
     <item
         android:id="@+id/b0"
-        android:title="B0"/>
+        android:title="B"/>
     <item
         android:id="@+id/cc"
         android:title="C+"/>
     <item
         android:id="@+id/c0"
-        android:title="C0"/>
+        android:title="C"/>
     <item
         android:id="@+id/dd"
         android:title="D+"/>
     <item
         android:id="@+id/d0"
-        android:title="D0"/>
+        android:title="D"/>
     <item
         android:id="@+id/p"
         android:title="P"/>

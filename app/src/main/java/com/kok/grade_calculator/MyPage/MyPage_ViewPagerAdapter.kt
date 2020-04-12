@@ -1,5 +1,6 @@
 package com.kok.grade_calculator.MyPage
 
+import android.app.AlertDialog
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kok.grade_calculator.App
 import com.kok.grade_calculator.Calculator
+import com.kok.grade_calculator.MainActivity
 import com.kok.grade_calculator.R
 
 class MyPage_ViewPagerAdapter(
     val c: Context,
     val itemlist:ArrayList<ArrayList<MyPage_item>>,
-    val addListener: MyPageEventListener
+    val addListener: MyPageEventListener,
+    val height: Int
 ): RecyclerView.Adapter<MyPage_ViewPagerAdapter.ViewHolder>(){
 
     private val SETTINGS_PLAYER_JSON = "settings_item_json"
@@ -41,6 +44,8 @@ class MyPage_ViewPagerAdapter(
         val adapter:MyPage_RecyclerViewAdapter
         layoutManager = LinearLayoutManager(c, RecyclerView.VERTICAL, false)
         holder.recyclerView.layoutManager = layoutManager
+        holder.recyclerView.layoutParams.height = height
+        //Log.d("height_recycler", holder.recyclerView.layoutParams.height.toString())
 
         val listener = object : MyPage_RecyclerViewAdapter.RecyclerViewAdapterEventListener{
             override fun onChangeCallback(items: ArrayList<MyPage_item>, index: Int, flag:Int) {
@@ -109,6 +114,10 @@ class MyPage_ViewPagerAdapter(
                 //현재 평점
                 val nowGPA = Calculator().totalCalculate(saveGPA)
                 App.prefs.setTotalGPA(nowGPA)
+
+                //재수강 후 평점
+                val retakeGPA = Calculator().retakeGPA(saveGPA)
+                App.prefs.setRetakeGPA(retakeGPA)
             }
         }
 
@@ -120,12 +129,23 @@ class MyPage_ViewPagerAdapter(
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return true }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // Adapter에 아이템 삭제 요청
-                adapter.removeTask(viewHolder.adapterPosition)
+
+                val builder = AlertDialog.Builder(c)
+                builder.setTitle("과목을 삭제 하시겠습니까?")
+                    .setPositiveButton("삭제") {
+                        dialog, i -> adapter.removeTask(viewHolder.adapterPosition)
+                    }
+                    .setNegativeButton("취소") {
+                        dialogInterface, i ->
+                        adapter.NoRemove()
+                        dialogInterface.cancel()
+                    }
+                    .create().show()
             }
         }).apply {
                 // ItemTouchHelper에 RecyclerView 설정
                 attachToRecyclerView(holder.recyclerView)
-            }
+        }
 
 
         holder.addBtn.setOnClickListener {
