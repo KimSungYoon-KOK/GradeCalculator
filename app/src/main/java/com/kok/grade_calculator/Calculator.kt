@@ -89,8 +89,8 @@ class Calculator {
     //재수강 후 학점 계산
     fun retakeGPA(itemlist : ArrayList<ArrayList<MyPage_item>>):Float {
 
-        var credit = 0
-        var credit_P = 0
+        var credit = 0          //패논패 과목 포함 학점
+        var credit_P = 0        //패논패 과목 제외 후 학점
         var grade = 0.toFloat()
 
         for(i in 0 until  itemlist.size){

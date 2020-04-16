@@ -20,7 +20,7 @@ class MyPage_RecyclerViewAdapter(
 ): RecyclerView.Adapter<MyPage_RecyclerViewAdapter.ViewHolder>(){
 
     interface RecyclerViewAdapterEventListener{
-        fun onChangeCallback(items: ArrayList<MyPage_item>, index:Int, flag:Int)
+        fun onChangeCallback(items: ArrayList<MyPage_item>, index:Int, flag:Boolean)        //flag -> 재수강시 true , 아이템 삭제 시 false
     }
 
     override fun onCreateViewHolder(
@@ -50,6 +50,7 @@ class MyPage_RecyclerViewAdapter(
             2.0.toFloat() -> "C"
             1.5.toFloat() -> "D+"
             1.0.toFloat() -> "D"
+            0.0.toFloat() -> "F"
             10.toFloat() -> "P"
             else -> data.grade.toString()
         }
@@ -95,7 +96,7 @@ class MyPage_RecyclerViewAdapter(
                 }
                 notifyDataSetChanged()
                 //Log.d("tag_recycler",items.toString())
-                listener.onChangeCallback(items, position,1)
+                listener.onChangeCallback(items, position,true)
                 true
             }
             popupMenu.inflate(R.menu.popupmenu_retake)
@@ -155,7 +156,7 @@ class MyPage_RecyclerViewAdapter(
 
         items.removeAt(position)
 
-        listener.onChangeCallback(items, position,2)
+        listener.onChangeCallback(items, position,false)
         notifyDataSetChanged()
     }
 

@@ -48,16 +48,14 @@ class MyPage_ViewPagerAdapter(
         //Log.d("height_recycler", holder.recyclerView.layoutParams.height.toString())
 
         val listener = object : MyPage_RecyclerViewAdapter.RecyclerViewAdapterEventListener{
-            override fun onChangeCallback(items: ArrayList<MyPage_item>, index: Int, flag:Int) {
-                val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
-                holder.semester_status.text = str
+            //flag -> 재수강시 true , 아이템 삭제 시 false
+            override fun onChangeCallback(items: ArrayList<MyPage_item>, index: Int, flag:Boolean) {
 
-                if(flag == 1){
+                if(flag){
                     val dataList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
 
                     for(i in dataList.indices) {
                         val data = dataList[i].split(" ")
-
 
                         if (data[1] == items[index].className && data[3].toFloat() == items[index].grade) {
                             dataList[i] =
@@ -68,56 +66,11 @@ class MyPage_ViewPagerAdapter(
                     App.prefs.setStringArrayPref(SETTINGS_PLAYER_JSON,dataList)
                 }
 
+                //데이터 변경 후 재 계산
+                reCalculator()
 
-                //데이터 리스트 갱신
-                val saveGPA:ArrayList<ArrayList<MyPage_item>> = ArrayList()
-                for(i in 0..7){
-                    val temp = ArrayList<MyPage_item>()
-                    saveGPA.add(temp)
-                }
-
-                val sharedPrefList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
-                if(sharedPrefList.isNotEmpty()){
-
-                    for(i in sharedPrefList.indices){
-                        val str = sharedPrefList[i].split(" ")
-
-                        //str[0] : viewpager position / str[1] : className / str[2] : credit / str[3] : grade / str[4] : category / str[5] : retakeGrade
-                        val tab_index = str[0].toInt()
-                        val className = str[1]
-                        val credit = str[2].toInt()
-                        val grade = str[3].toFloat()
-                        val category = when(str[4]){
-                            "true" -> true
-                            "false" -> false
-                            else -> false
-                        }
-                        val retakeGrade = str[5].toFloat()
-
-                        saveGPA[tab_index].add(MyPage_item(tab_index, className, credit, grade, category, retakeGrade))
-                    }
-                }
-
-                var nowCredit = 0               //현재 이수한 학점(전체)
-                var nowCredit_P = 0             //현재 이수한 패논패 과목 학점
-                for(i in saveGPA.indices){
-                    for(j in saveGPA[i].indices){
-                        nowCredit += saveGPA[i][j].credit
-
-                        if(saveGPA[i][j].grade == 10.toFloat())
-                            nowCredit_P += saveGPA[i][j].credit
-                    }
-                }
-                App.prefs.setTotalCredit(nowCredit)
-                App.prefs.setTotalCredit_P(nowCredit_P)
-
-                //현재 평점
-                val nowGPA = Calculator().totalCalculate(saveGPA)
-                App.prefs.setTotalGPA(nowGPA)
-
-                //재수강 후 평점
-                val retakeGPA = Calculator().retakeGPA(saveGPA)
-                App.prefs.setRetakeGPA(retakeGPA)
+                val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
+                holder.semester_status.text = str
             }
         }
 
@@ -129,29 +82,17 @@ class MyPage_ViewPagerAdapter(
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean { return true }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // Adapter에 아이템 삭제 요청
-
-                val builder = AlertDialog.Builder(c)
-                builder.setTitle("과목을 삭제 하시겠습니까?")
-                    .setPositiveButton("삭제") {
-                        dialog, i -> adapter.removeTask(viewHolder.adapterPosition)
-                    }
-                    .setNegativeButton("취소") {
-                        dialogInterface, i ->
-                        adapter.NoRemove()
-                        dialogInterface.cancel()
-                    }
-                    .create().show()
+                initDialog(adapter, viewHolder)
             }
         }).apply {
                 // ItemTouchHelper에 RecyclerView 설정
                 attachToRecyclerView(holder.recyclerView)
         }
 
-
+        //과목 추가 버튼 리스너
         holder.addBtn.setOnClickListener {
             addListener.addGrade(it, position)
         }
-
 
         val str = Calculator().semesterCalculate(itemlist,position) + "(" + Calculator().retakeCalculate(itemlist,position) + ")"
         holder.semester_status.text = str
@@ -168,6 +109,76 @@ class MyPage_ViewPagerAdapter(
             recyclerView = itemView.findViewById(R.id.my_page_recyclerview)
             addBtn = itemView.findViewById(R.id.addBtn)
         }
+    }
+
+    //swipe과목 삭제 시 다이얼로그 알림
+    fun initDialog(adapter: MyPage_RecyclerViewAdapter, viewHolder: RecyclerView.ViewHolder){
+        val builder = AlertDialog.Builder(c)
+        builder.setTitle("과목을 삭제 하시겠습니까?")
+            .setPositiveButton("삭제") {
+                    dialog, i -> adapter.removeTask(viewHolder.adapterPosition)
+            }
+            .setNegativeButton("취소") {
+                    dialogInterface, i ->
+                adapter.NoRemove()
+                dialogInterface.cancel()
+            }
+            .create().show()
+    }
+
+    //데이터 변화 시 학점 다시 계산
+    fun reCalculator(){
+        //데이터 리스트 갱신
+        val saveGPA:ArrayList<ArrayList<MyPage_item>> = ArrayList()
+        for(i in 0..7){
+            val temp = ArrayList<MyPage_item>()
+            saveGPA.add(temp)
+        }
+
+        val sharedPrefList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
+        if(sharedPrefList.isNotEmpty()){
+
+            for(i in sharedPrefList.indices){
+                val str = sharedPrefList[i].split(" ")
+
+                //str[0] : viewpager position / str[1] : className / str[2] : credit / str[3] : grade / str[4] : category / str[5] : retakeGrade
+                val tab_index = str[0].toInt()
+                val className = str[1]
+                val credit = str[2].toInt()
+                val grade = str[3].toFloat()
+                val category = when(str[4]){
+                    "true" -> true
+                    "false" -> false
+                    else -> false
+                }
+                val retakeGrade = str[5].toFloat()
+
+                saveGPA[tab_index].add(MyPage_item(tab_index, className, credit, grade, category, retakeGrade))
+            }
+        }
+
+        var nowCredit = 0               //현재 이수한 학점(전체)
+        var nowCredit_P = 0             //현재 이수한 패논패 과목 학점
+        for(i in saveGPA.indices){
+            for(j in saveGPA[i].indices){
+                nowCredit += saveGPA[i][j].credit
+
+                if(saveGPA[i][j].grade == 10.toFloat())
+                    nowCredit_P += saveGPA[i][j].credit
+            }
+        }
+        App.prefs.setTotalCredit(nowCredit)
+        App.prefs.setTotalCredit_P(nowCredit_P)
+
+        //현재 평점
+        val nowGPA = Calculator().totalCalculate(saveGPA)
+        App.prefs.setTotalGPA(nowGPA)
+
+        //재수강 후 평점
+        val retakeGPA = Calculator().retakeGPA(saveGPA)
+        App.prefs.setRetakeGPA(retakeGPA)
+
+        notifyDataSetChanged()
     }
 
 }
