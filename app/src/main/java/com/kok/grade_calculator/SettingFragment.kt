@@ -41,7 +41,7 @@ class SettingFragment : Fragment(){
 
         //전면 광고 initializer
         mInterstitialAd = InterstitialAd(requireContext())
-        mInterstitialAd.adUnitId = getString(R.string.front_ad_unit_id)
+        mInterstitialAd.adUnitId = getString(R.string.banner_ad_unit_id_for_test)
         mInterstitialAd.loadAd(AdRequest.Builder().build())
 
 

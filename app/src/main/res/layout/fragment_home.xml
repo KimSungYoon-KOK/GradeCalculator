@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/adView_home"
             ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id">
+            ads:adUnitId="@string/banner_ad_unit_id_for_test">
         </com.google.android.gms.ads.AdView>
 
     </LinearLayout>
