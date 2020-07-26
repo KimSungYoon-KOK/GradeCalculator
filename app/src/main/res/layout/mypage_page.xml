@@ -114,7 +114,7 @@
         android:layout_gravity="center|bottom"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/radius_btn"
+        android:background="@drawable/btn_rounded_corner_rectangle"
         android:gravity="center"
         android:padding="10dp"
         android:text="과목 추가"

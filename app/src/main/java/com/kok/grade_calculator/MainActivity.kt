@@ -3,87 +3,45 @@ package com.kok.grade_calculator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.fragment.app.FragmentManager
-import com.google.android.gms.ads.AdView
-import com.kok.grade_calculator.mypage.mypageFragment
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kok.grade_calculator.home.HomeFragment
+import com.kok.grade_calculator.mypage.MyPageFragment
+import com.kok.grade_calculator.setting.SettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mAdView : AdView
+    private val homeFragment = HomeFragment()
+    private val mypageFragment = MyPageFragment()
+    private val settingFragment = SettingFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        setBottomNavListener()
-        attachHome()
+        initView()
     }
 
-    fun setBottomNavListener() {
-
-        bottomNavigationView.setOnNavigationItemSelectedListener { item: MenuItem ->
-            return@setOnNavigationItemSelectedListener when (item.itemId) {
-                R.id.nav_home -> {
-                    attachHome()
-                    true
+    private fun initView() {
+        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, homeFragment).commitAllowingStateLoss()
+        nav_view.setOnNavigationItemSelectedListener {
+            val transaction = supportFragmentManager.beginTransaction()
+            when(it.itemId) {
+                R.id.navigation_home -> {
+                    transaction.replace(R.id.nav_host_fragment, homeFragment).commitAllowingStateLoss()
+                    return@setOnNavigationItemSelectedListener true
                 }
-                R.id.nav_mypage -> {
-                    attachMypage()
-                    true
+                R.id.navigation_mypage -> {
+                    transaction.replace(R.id.nav_host_fragment, mypageFragment).commitAllowingStateLoss()
+                    return@setOnNavigationItemSelectedListener true
                 }
-                R.id.nav_setting -> {
-                    attachSetting()
-                    true
+                R.id.navigation_setting -> {
+                    transaction.replace(R.id.nav_host_fragment, settingFragment).commitAllowingStateLoss()
+                    return@setOnNavigationItemSelectedListener true
                 }
-                else -> false
             }
+            false
         }
     }
 
-
-    lateinit var current_status:String
-    fun attachHome(){
-        val frag = supportFragmentManager.findFragmentByTag("home")
-        val tagStr = frag?.tag.toString()
-        if(tagStr == "home"){
-
-        } else{
-            val homeTransaction = supportFragmentManager.beginTransaction()
-            val homeFrag = HomeFragment()
-            homeTransaction.replace(R.id.frame, homeFrag)
-            val clear = supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            homeTransaction.commit()
-            current_status = "home"
-        }
-    }
-
-    fun attachMypage(){
-        val frag = supportFragmentManager.findFragmentByTag("mypage")
-        val tagStr = frag?.tag.toString()
-        if(tagStr == "mypage"){
-
-        } else{
-            val MyPageTransaction = supportFragmentManager.beginTransaction()
-            val mypageFrag = mypageFragment()
-            MyPageTransaction.replace(R.id.frame, mypageFrag)
-            MyPageTransaction.commit()
-            current_status = "mypage"
-        }
-    }
-
-    fun attachSetting(){
-        val frag = supportFragmentManager.findFragmentByTag("setting")
-        val tagStr = frag?.tag.toString()
-        if(tagStr == "setting"){
-
-        } else{
-            val ForecastTransaction = supportFragmentManager.beginTransaction()
-            val addFrag = SettingFragment()
-            ForecastTransaction.replace(R.id.frame, addFrag)
-            val clear = supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            ForecastTransaction.commit()
-            current_status = "setting"
-        }
-    }
 }

@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name="com.kok.grade_calculator.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,18 +18,15 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id"/>
 
-        <activity android:name="com.kok.grade_calculator.SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.kok.grade_calculator.FirststartActivity"></activity>
-        <activity
-            android:name="com.kok.grade_calculator.MainActivity" android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan"
-            ></activity>
+        <activity android:name=".StartActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

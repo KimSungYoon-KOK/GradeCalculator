@@ -22,7 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_mypage.*
 
 
-class mypageFragment : Fragment() {
+class MyPageFragment : Fragment() {
 
     private val SETTINGS_PLAYER_JSON = "settings_item_json"
 
@@ -198,7 +198,7 @@ class mypageFragment : Fragment() {
                             Toast.makeText(requireContext(), "${et_className.text}과목이 추가 되었습니다.",Toast.LENGTH_SHORT).show()
 
                             val ft = fragmentManager!!.beginTransaction()
-                            ft.detach(this@mypageFragment).attach(this@mypageFragment).commit()
+                            ft.detach(this@MyPageFragment).attach(this@MyPageFragment).commit()
                         }
                     }
                     .setNegativeButton("취소"){

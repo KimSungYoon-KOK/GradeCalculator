@@ -8,15 +8,14 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
 
-        if(MySharedPreferences(this).getStartFlag()){
-            val Intent = Intent(this, MainActivity::class.java)
-            startActivity(Intent)
+        if(App.prefs.getStartFlag()) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             finish()
         }else{
-            val Intent = Intent(this, FirststartActivity::class.java)
-            startActivity(Intent)
+            val intent = Intent(this, StartActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }

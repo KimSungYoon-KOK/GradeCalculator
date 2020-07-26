@@ -9,28 +9,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary"
-        android:gravity="center">
-
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/adView_home"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id_for_test">
-        </com.google.android.gms.ads.AdView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:elevation="3dp"
         android:layout_marginBottom="10dp">
 
@@ -49,7 +31,7 @@
                 android:layout_centerInParent="true" />
 
             <TextView
-                android:id="@+id/tv_nowGrede"
+                android:id="@+id/tv_nowGrade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4.5"
@@ -57,10 +39,9 @@
                 android:textColor="@color/white"
                 android:layout_centerInParent="true"/>
 
-
         </RelativeLayout>
-
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">학점 계산기</string>
+    <string name="app_name">학점 메이트</string>
     <string name="title_activity_main2">Main2Activity</string>
 
     <!--Bottom Navigation Title-->
-    <string name="title_home">Home</string>
-    <string name="title_setting">Setting</string>
-    <string name="title_mypage">My Page</string>
+    <string name="title_home">홈</string>
+    <string name="title_setting">설정</string>
+    <string name="title_mypage">학점 계산</string>
 
     <!--광고 id-->
     <string name="admob_app_id">ca-app-pub-9529195257619062~8732296441</string>

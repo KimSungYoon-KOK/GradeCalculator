@@ -1,8 +1,7 @@
-package com.kok.grade_calculator
+package com.kok.grade_calculator.setting
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +11,13 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.kok.grade_calculator.App
+import com.kok.grade_calculator.R
 import kotlinx.android.synthetic.main.fragment_setting.*
 
 class SettingFragment : Fragment(){
 
     private val SETTINGS_PLAYER_JSON = "settings_item_json"
-    private lateinit var mInterstitialAd: InterstitialAd
 
        override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,13 +29,11 @@ class SettingFragment : Fragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         init()
         initBtn()
-
     }
 
-    private fun init(){
+    private fun init() {
 
         //졸업 기준 학점
         val graduateCredit = App.prefs.getGraduate()
@@ -64,12 +60,6 @@ class SettingFragment : Fragment(){
     }
 
     fun initBtn(){
-
-        mInterstitialAd.adListener = object : AdListener() {
-            override fun onAdClosed() {
-                mInterstitialAd.loadAd(AdRequest.Builder().build())
-            }
-        }
 
         editBtn.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.edit_dialog,null)
