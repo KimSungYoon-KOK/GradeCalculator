@@ -32,7 +32,7 @@ class MySharedPreferences(context: Context) {
         for (i in 0 until values.size) {
             a.put(values[i])
         }
-        if (!values.isEmpty()) {
+        if (values.isNotEmpty()) {
             editor.putString(key, a.toString())
         } else {
             editor.putString(key, null)

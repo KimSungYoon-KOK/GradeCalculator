@@ -1,8 +1,7 @@
-package com.kok.grade_calculator.MyPage
+package com.kok.grade_calculator.mypage
 
 import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kok.grade_calculator.App
 import com.kok.grade_calculator.Calculator
-import com.kok.grade_calculator.MainActivity
 import com.kok.grade_calculator.R
 
-class MyPage_ViewPagerAdapter(
+class mypageViewPagerAdapter(
     val c: Context,
-    val itemlist:ArrayList<ArrayList<MyPage_item>>,
+    val itemlist:ArrayList<ArrayList<myPageItem>>,
     val addListener: MyPageEventListener,
     val height: Int
-): RecyclerView.Adapter<MyPage_ViewPagerAdapter.ViewHolder>(){
+): RecyclerView.Adapter<mypageViewPagerAdapter.ViewHolder>(){
 
     private val SETTINGS_PLAYER_JSON = "settings_item_json"
 
@@ -41,15 +39,15 @@ class MyPage_ViewPagerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val layoutManager:RecyclerView.LayoutManager
-        val adapter:MyPage_RecyclerViewAdapter
+        val adapter:mypageRecyclerViewAdapter
         layoutManager = LinearLayoutManager(c, RecyclerView.VERTICAL, false)
         holder.recyclerView.layoutManager = layoutManager
         holder.recyclerView.layoutParams.height = height
         //Log.d("height_recycler", holder.recyclerView.layoutParams.height.toString())
 
-        val listener = object : MyPage_RecyclerViewAdapter.RecyclerViewAdapterEventListener{
+        val listener = object : mypageRecyclerViewAdapter.RecyclerViewAdapterEventListener{
             //flag -> 재수강시 true , 아이템 삭제 시 false
-            override fun onChangeCallback(items: ArrayList<MyPage_item>, index: Int, flag:Boolean) {
+            override fun onChangeCallback(items: ArrayList<myPageItem>, index: Int, flag:Boolean) {
 
                 if(flag){
                     val dataList = App.prefs.getStringArrayPref(SETTINGS_PLAYER_JSON)
@@ -74,7 +72,7 @@ class MyPage_ViewPagerAdapter(
             }
         }
 
-        adapter = MyPage_RecyclerViewAdapter(c, listener, itemlist[position])
+        adapter = mypageRecyclerViewAdapter(c, listener, itemlist[position])
         holder.recyclerView.adapter = adapter
 
         // 밀어서 아이템 삭제 구현
@@ -112,7 +110,7 @@ class MyPage_ViewPagerAdapter(
     }
 
     //swipe과목 삭제 시 다이얼로그 알림
-    fun initDialog(adapter: MyPage_RecyclerViewAdapter, viewHolder: RecyclerView.ViewHolder){
+    fun initDialog(adapter: mypageRecyclerViewAdapter, viewHolder: RecyclerView.ViewHolder){
         val builder = AlertDialog.Builder(c)
         builder.setTitle("과목을 삭제 하시겠습니까?")
             .setPositiveButton("삭제") {
@@ -129,9 +127,9 @@ class MyPage_ViewPagerAdapter(
     //데이터 변화 시 학점 다시 계산
     fun reCalculator(){
         //데이터 리스트 갱신
-        val saveGPA:ArrayList<ArrayList<MyPage_item>> = ArrayList()
+        val saveGPA:ArrayList<ArrayList<myPageItem>> = ArrayList()
         for(i in 0..7){
-            val temp = ArrayList<MyPage_item>()
+            val temp = ArrayList<myPageItem>()
             saveGPA.add(temp)
         }
 
@@ -153,7 +151,7 @@ class MyPage_ViewPagerAdapter(
                 }
                 val retakeGrade = str[5].toFloat()
 
-                saveGPA[tab_index].add(MyPage_item(tab_index, className, credit, grade, category, retakeGrade))
+                saveGPA[tab_index].add(myPageItem(tab_index, className, credit, grade, category, retakeGrade))
             }
         }
 

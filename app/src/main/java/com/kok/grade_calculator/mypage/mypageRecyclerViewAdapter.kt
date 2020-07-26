@@ -1,4 +1,4 @@
-package com.kok.grade_calculator.MyPage
+package com.kok.grade_calculator.mypage
 
 import android.content.Context
 import android.util.Log
@@ -13,20 +13,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kok.grade_calculator.App
 import com.kok.grade_calculator.R
 
-class MyPage_RecyclerViewAdapter(
+class mypageRecyclerViewAdapter(
     val context: Context,
     var listener: RecyclerViewAdapterEventListener,
-    var items:ArrayList<MyPage_item>
-): RecyclerView.Adapter<MyPage_RecyclerViewAdapter.ViewHolder>(){
+    var items:ArrayList<myPageItem>
+): RecyclerView.Adapter<mypageRecyclerViewAdapter.ViewHolder>(){
 
     interface RecyclerViewAdapterEventListener{
-        fun onChangeCallback(items: ArrayList<MyPage_item>, index:Int, flag:Boolean)        //flag -> 재수강시 true , 아이템 삭제 시 false
+        fun onChangeCallback(items: ArrayList<myPageItem>, index:Int, flag:Boolean)        //flag -> 재수강시 true , 아이템 삭제 시 false
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MyPage_RecyclerViewAdapter.ViewHolder {
+    ): mypageRecyclerViewAdapter.ViewHolder {
         val v = LayoutInflater.from(context)
             .inflate(R.layout.mypage_item, parent, false)
         return ViewHolder(v)

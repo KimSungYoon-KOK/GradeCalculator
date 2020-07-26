@@ -1,4 +1,4 @@
-package com.kok.grade_calculator.MyPage
+package com.kok.grade_calculator.mypage
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -20,14 +20,13 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_mypage.*
-import kotlinx.android.synthetic.main.mypage_page.*
 
 
-class MypageFragment : Fragment() {
+class mypageFragment : Fragment() {
 
     private val SETTINGS_PLAYER_JSON = "settings_item_json"
 
-    lateinit var saveGPA:ArrayList<ArrayList<MyPage_item>>          //학점 정보 저장하는 이차원 리스트
+    lateinit var saveGPA:ArrayList<ArrayList<myPageItem>>          //학점 정보 저장하는 이차원 리스트
     lateinit var sharedPrefList:ArrayList<String>                   //sharedpreferences 저장시 사용하는 임시 리스트
 
     override fun onCreateView(
@@ -95,7 +94,7 @@ class MypageFragment : Fragment() {
 
         ////////////////////////////1학년 1학기 ~ 4학년 2학기까지 8개의 뷰페이저 생성/////////////////////////////
         for(i in 0..7){
-            val temp = ArrayList<MyPage_item>()
+            val temp = ArrayList<myPageItem>()
             saveGPA.add(temp)
         }
 
@@ -118,7 +117,7 @@ class MypageFragment : Fragment() {
                 }
                 val retakeGrade = str[5].toFloat()
 
-                saveGPA[tab_index].add(MyPage_item(tab_index, className, credit, grade, category, retakeGrade))
+                saveGPA[tab_index].add(myPageItem(tab_index, className, credit, grade, category, retakeGrade))
             }
 
             //Log.d("saveLog",saveGPA.toString())
@@ -126,7 +125,7 @@ class MypageFragment : Fragment() {
 
 
         ////////////////////////////////학점 추가하기 버튼 리스너////////////////////////////////////
-        val listener = object : MyPage_ViewPagerAdapter.MyPageEventListener{
+        val listener = object : mypageViewPagerAdapter.MyPageEventListener{
             override fun addGrade(view: View, position: Int) {
 
                 val dialogView = layoutInflater.inflate(R.layout.add_dialog,null)
@@ -170,7 +169,7 @@ class MypageFragment : Fragment() {
                             }
 
                             //dialog에 작성한 과목 정보를 saveGPA에 추가
-                            saveGPA[position].add(MyPage_item(position, strClassName, (spinner_credit.selectedItemPosition+1), tempGrade, tempCategory,tempGrade))
+                            saveGPA[position].add(myPageItem(position, strClassName, (spinner_credit.selectedItemPosition+1), tempGrade, tempCategory,tempGrade))
 
                             //MyPage_item 객체를 하나의 String으로 만들어서 sharedpreference에 저장
                             sharedPrefList.clear()
@@ -199,7 +198,7 @@ class MypageFragment : Fragment() {
                             Toast.makeText(requireContext(), "${et_className.text}과목이 추가 되었습니다.",Toast.LENGTH_SHORT).show()
 
                             val ft = fragmentManager!!.beginTransaction()
-                            ft.detach(this@MypageFragment).attach(this@MypageFragment).commit()
+                            ft.detach(this@mypageFragment).attach(this@mypageFragment).commit()
                         }
                     }
                     .setNegativeButton("취소"){
@@ -210,10 +209,10 @@ class MypageFragment : Fragment() {
             }
         }
 
-        mypage_viewpager.adapter = MyPage_ViewPagerAdapter(requireContext(), saveGPA, listener, height)
+        mypageViewpager.adapter = mypageViewPagerAdapter(requireContext(), saveGPA, listener, height)
 
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
-        TabLayoutMediator(tabLayout, mypage_viewpager){
+        TabLayoutMediator(tabLayout, mypageViewpager){
             tab, position ->
             tab.text = when(position){
                 0 -> "1학년 1학기"

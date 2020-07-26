@@ -37,14 +37,7 @@ class SettingFragment : Fragment(){
 
     }
 
-    fun init(){
-
-        //전면 광고 initializer
-        mInterstitialAd = InterstitialAd(requireContext())
-        mInterstitialAd.adUnitId = getString(R.string.banner_ad_unit_id_for_test)
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
-
-
+    private fun init(){
 
         //졸업 기준 학점
         val graduateCredit = App.prefs.getGraduate()
@@ -75,15 +68,6 @@ class SettingFragment : Fragment(){
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdClosed() {
                 mInterstitialAd.loadAd(AdRequest.Builder().build())
-            }
-        }
-
-        //광고 시청 버튼
-        adsViewBtn.setOnClickListener {
-            if (mInterstitialAd.isLoaded) {
-                mInterstitialAd.show()
-            } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.")
             }
         }
 

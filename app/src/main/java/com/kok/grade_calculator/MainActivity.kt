@@ -2,13 +2,10 @@ package com.kok.grade_calculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.FragmentManager
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
-import com.kok.grade_calculator.MyPage.MypageFragment
+import com.kok.grade_calculator.mypage.mypageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -68,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         } else{
             val MyPageTransaction = supportFragmentManager.beginTransaction()
-            val mypageFrag = MypageFragment()
+            val mypageFrag = mypageFragment()
             MyPageTransaction.replace(R.id.frame, mypageFrag)
             MyPageTransaction.commit()
             current_status = "mypage"

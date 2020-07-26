@@ -219,18 +219,6 @@
         android:gravity="right">
 
         <TextView
-            android:id="@+id/adsViewBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/radius_btn"
-            android:padding="10dp"
-            android:text="광고보기"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-
-        <TextView
             android:id="@+id/editBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

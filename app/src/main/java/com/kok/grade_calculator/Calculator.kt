@@ -1,12 +1,12 @@
 package com.kok.grade_calculator
 
-import com.kok.grade_calculator.MyPage.MyPage_item
+import com.kok.grade_calculator.mypage.myPageItem
 import kotlin.math.round
 
 class Calculator {
 
     //학기별 이수 학점 계산
-    fun semesterCalculate(itemlist : ArrayList<ArrayList<MyPage_item>>, position : Int)
+    fun semesterCalculate(itemlist : ArrayList<ArrayList<myPageItem>>, position : Int)
     : String{
 
         var semesterCredit = 0              //학기별 수강 학점
@@ -33,7 +33,7 @@ class Calculator {
         return "이수 학점 : $semesterCredit     성적 : $semesterGrade"
     }
 
-    fun retakeCalculate(itemlist : ArrayList<ArrayList<MyPage_item>>, position : Int)
+    fun retakeCalculate(itemlist : ArrayList<ArrayList<myPageItem>>, position : Int)
     :String {
 
         var semesterCredit = 0              //학기별 수강 학점
@@ -60,7 +60,7 @@ class Calculator {
         return semesterGrade.toString()
     }
 
-    fun totalCalculate(itemlist : ArrayList<ArrayList<MyPage_item>>):Float{
+    fun totalCalculate(itemlist : ArrayList<ArrayList<myPageItem>>):Float{
 
         var credit = 0
         var credit_P = 0
@@ -87,7 +87,7 @@ class Calculator {
     }
 
     //재수강 후 학점 계산
-    fun retakeGPA(itemlist : ArrayList<ArrayList<MyPage_item>>):Float {
+    fun retakeGPA(itemlist : ArrayList<ArrayList<myPageItem>>):Float {
 
         var credit = 0          //패논패 과목 포함 학점
         var credit_P = 0        //패논패 과목 제외 후 학점
