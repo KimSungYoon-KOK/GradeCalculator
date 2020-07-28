@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     private fun initText(){
         tv_nowGrade.text = App.prefs.getTotalGPA().toString()
         tv_restCredit.text = ((App.prefs.getGraduate() - App.prefs.getTotalCredit()).toString() + " 학점")
-        val temp = Calculator().needGPA_Calculate(
+        val temp = Calculator().needGpaCalculate(
             App.prefs.getGraduate(), App.prefs.getTotalCredit(), App.prefs.getTotalCreditPF(), App.prefs.getUserGoal(), App.prefs.getTotalGPA())
         if(temp <= App.prefs.getUserGoal() && App.prefs.getTotalCredit() != 0){
             tv_needgrade.text = "목표 달성"
@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
             tv_needgrade.text = (Math.round(temp*100)/100.0).toString()
         }
 
-        val temp2 = Calculator().needGPA_Calculate(
+        val temp2 = Calculator().needGpaCalculate(
             App.prefs.getGraduate(), App.prefs.getTotalCredit(), App.prefs.getTotalCreditPF(), App.prefs.getUserGoal(), App.prefs.getRetakeGPA())
         if(temp2 <= App.prefs.getUserGoal() && App.prefs.getTotalCredit() != 0){
             tv_retake_needgrade.text = "목표 달성"

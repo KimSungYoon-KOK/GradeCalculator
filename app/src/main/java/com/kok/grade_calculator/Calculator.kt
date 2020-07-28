@@ -6,26 +6,26 @@ import kotlin.math.round
 class Calculator {
 
     //학기별 이수 학점 계산
-    fun semesterCalculate(itemlist : ArrayList<ArrayList<MyPageItem>>, position : Int)
+    fun semesterCalculate(itemList : ArrayList<ArrayList<MyPageItem>>, position : Int)
     : String{
 
         var semesterCredit = 0              //학기별 수강 학점
-        var semesterCredit_P = 0            //학기별 패논패 과목 제외 후 수강 학점
+        var semesterCreditPF = 0            //학기별 패논패 과목 제외 후 수강 학점
         var semesterGrade = 0.0             //학기별 학점
 
-        for(i in 0 until itemlist[position].size){
-            semesterCredit += itemlist[position][i].credit
-            if(itemlist[position][i].grade == 10.toFloat()){
+        for(i in 0 until itemList[position].size){
+            semesterCredit += itemList[position][i].credit
+            if(itemList[position][i].grade == 10.toFloat()){
                 continue
             }
-            semesterCredit_P += itemlist[position][i].credit
-            semesterGrade += itemlist[position][i].grade*itemlist[position][i].credit
+            semesterCreditPF += itemList[position][i].credit
+            semesterGrade += itemList[position][i].grade*itemList[position][i].credit
         }
 
-        if(semesterCredit_P == 0){
+        if(semesterCreditPF == 0){
             semesterGrade = 0.0
         }else{
-            semesterGrade /= semesterCredit_P
+            semesterGrade /= semesterCreditPF
             semesterGrade *= 100
             semesterGrade = round(semesterGrade)/100
         }
@@ -60,25 +60,25 @@ class Calculator {
         return semesterGrade.toString()
     }
 
-    fun totalCalculate(itemlist : ArrayList<ArrayList<MyPageItem>>):Float{
+    fun totalCalculate(itemList : ArrayList<ArrayList<MyPageItem>>):Float{
 
         var credit = 0
-        var credit_P = 0
+        var creditPF = 0
         var grade = 0.toFloat()
 
-        for(i in 0 until  itemlist.size){
-            for(j in 0 until itemlist[i].size){
-                credit += itemlist[i][j].credit
-                if(itemlist[i][j].grade == 10.toFloat()){
+        for(i in 0 until  itemList.size){
+            for(j in 0 until itemList[i].size){
+                credit += itemList[i][j].credit
+                if(itemList[i][j].grade == 10.toFloat()){
                     continue
                 }
-                credit_P += itemlist[i][j].credit
-                grade += itemlist[i][j].grade*itemlist[i][j].credit
+                creditPF += itemList[i][j].credit
+                grade += itemList[i][j].grade*itemList[i][j].credit
             }
         }
 
-        if(credit_P != 0){
-            grade /= credit_P
+        if(creditPF != 0){
+            grade /= creditPF
             grade *= 100
             grade = round(grade)/100
         }
@@ -87,25 +87,25 @@ class Calculator {
     }
 
     //재수강 후 학점 계산
-    fun retakeGPA(itemlist : ArrayList<ArrayList<MyPageItem>>):Float {
+    fun retakeGPA(itemList : ArrayList<ArrayList<MyPageItem>>):Float {
 
         var credit = 0          //패논패 과목 포함 학점
-        var credit_P = 0        //패논패 과목 제외 후 학점
+        var creditPF = 0        //패논패 과목 제외 후 학점
         var grade = 0.toFloat()
 
-        for(i in 0 until  itemlist.size){
-            for(j in 0 until itemlist[i].size){
-                credit += itemlist[i][j].credit
-                if(itemlist[i][j].grade == 10.toFloat()){
+        for(i in 0 until  itemList.size){
+            for(j in 0 until itemList[i].size){
+                credit += itemList[i][j].credit
+                if(itemList[i][j].grade == 10.toFloat()){
                     continue
                 }
-                credit_P += itemlist[i][j].credit
-                grade += itemlist[i][j].retakeGrade*itemlist[i][j].credit
+                creditPF += itemList[i][j].credit
+                grade += itemList[i][j].retakeGrade*itemList[i][j].credit
             }
         }
 
-        if(credit_P != 0){
-            grade /= credit_P
+        if(creditPF != 0){
+            grade /= creditPF
             grade *= 100
             grade = round(grade)/100
         }
@@ -113,7 +113,7 @@ class Calculator {
         return grade
     }
 
-    fun needGPA_Calculate(graduateCredit: Int, nowCredit: Int, nowCredit_P: Int,goalGPA: Float, nowGPA: Float):Float{
+    fun needGpaCalculate(graduateCredit: Int, nowCredit: Int, nowCredit_P: Int, goalGPA: Float, nowGPA: Float):Float{
 
         val goal = (graduateCredit - nowCredit_P) * goalGPA
         val now = (nowCredit - nowCredit_P) * nowGPA
