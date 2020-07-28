@@ -1,14 +1,10 @@
 package com.kok.grade_calculator.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 import com.kok.grade_calculator.App
 import com.kok.grade_calculator.Calculator
 import com.kok.grade_calculator.R
@@ -48,7 +44,7 @@ class HomeFragment : Fragment() {
         tv_nowGrade.text = App.prefs.getTotalGPA().toString()
         tv_restCredit.text = ((App.prefs.getGraduate() - App.prefs.getTotalCredit()).toString() + " 학점")
         val temp = Calculator().needGPA_Calculate(
-            App.prefs.getGraduate(), App.prefs.getTotalCredit(), App.prefs.getTotalCredit_P(), App.prefs.getUserGoal(), App.prefs.getTotalGPA())
+            App.prefs.getGraduate(), App.prefs.getTotalCredit(), App.prefs.getTotalCreditPF(), App.prefs.getUserGoal(), App.prefs.getTotalGPA())
         if(temp <= App.prefs.getUserGoal() && App.prefs.getTotalCredit() != 0){
             tv_needgrade.text = "목표 달성"
         }else {
@@ -56,7 +52,7 @@ class HomeFragment : Fragment() {
         }
 
         val temp2 = Calculator().needGPA_Calculate(
-            App.prefs.getGraduate(), App.prefs.getTotalCredit(), App.prefs.getTotalCredit_P(), App.prefs.getUserGoal(), App.prefs.getRetakeGPA())
+            App.prefs.getGraduate(), App.prefs.getTotalCredit(), App.prefs.getTotalCreditPF(), App.prefs.getUserGoal(), App.prefs.getRetakeGPA())
         if(temp2 <= App.prefs.getUserGoal() && App.prefs.getTotalCredit() != 0){
             tv_retake_needgrade.text = "목표 달성"
         }else {

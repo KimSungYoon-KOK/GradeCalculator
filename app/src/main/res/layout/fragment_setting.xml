@@ -1,50 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="3dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorPrimaryDark"
-            android:elevation="3dp">
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:text="나의 졸업 요건"
+            android:textColor="@color/white"
+            android:textSize="23sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:layout_marginBottom="25dp"
-                android:gravity="center"
-                android:text="나의 졸업 요건"
-                android:textColor="@color/white"
-                android:textSize="23sp" />
-        </LinearLayout>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:paddingBottom="15dp">
+            android:padding="30dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="12dp"
+                android:layout_margin="5dp"
                 android:background="#ffffff"
-                android:elevation="3dp"
+                android:elevation="2dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -69,11 +65,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="12dp"
+                android:layout_margin="5dp"
                 android:background="#ffffff"
-                android:elevation="3dp"
+                android:elevation="2dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -98,11 +92,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="12dp"
+                android:layout_margin="5dp"
                 android:background="#ffffff"
-                android:elevation="3dp"
+                android:elevation="2dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -127,11 +119,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="12dp"
+                android:layout_margin="5dp"
                 android:background="#ffffff"
-                android:elevation="3dp"
+                android:elevation="2dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -156,11 +146,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="12dp"
+                android:layout_margin="5dp"
                 android:background="#ffffff"
-                android:elevation="3dp"
+                android:elevation="2dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -185,11 +173,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="12dp"
+                android:layout_margin="5dp"
                 android:background="#ffffff"
-                android:elevation="3dp"
+                android:elevation="2dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -212,21 +198,27 @@
             </LinearLayout>
 
         </LinearLayout>
+    </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp">
-
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <TextView
                 android:id="@+id/addBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:background="@drawable/btn_rounded_corner_rectangle"
+                android:gravity="center"
                 android:padding="10dp"
                 android:text="졸업 요건 세부 사항 추가"
                 android:textColor="@color/white"
@@ -240,32 +232,26 @@
             <TextView
                 android:id="@+id/editBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:background="@drawable/btn_rounded_corner_rectangle"
+                android:gravity="center"
                 android:padding="10dp"
                 android:text="수정하기"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
-
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_rounded_corner_rectangle"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="광고 지우기"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
-
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_rounded_corner_rectangle"
+            android:gravity="center"
+            android:text="광고 지우기"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
     </LinearLayout>
-</ScrollView>
+
+
+
+</LinearLayout>

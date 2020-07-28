@@ -3,7 +3,7 @@ package com.kok.grade_calculator.mypage
 import android.os.Parcel
 import android.os.Parcelable
 
-data class myPageItem(
+data class MyPageItem(
     var semester: Int,
     var className: String,      //과목명
     var credit:Int,             //이수 학점
@@ -34,12 +34,12 @@ data class myPageItem(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<myPageItem> {
-        override fun createFromParcel(parcel: Parcel): myPageItem {
-            return myPageItem(parcel)
+    companion object CREATOR : Parcelable.Creator<MyPageItem> {
+        override fun createFromParcel(parcel: Parcel): MyPageItem {
+            return MyPageItem(parcel)
         }
 
-        override fun newArray(size: Int): Array<myPageItem?> {
+        override fun newArray(size: Int): Array<MyPageItem?> {
             return arrayOfNulls(size)
         }
     }

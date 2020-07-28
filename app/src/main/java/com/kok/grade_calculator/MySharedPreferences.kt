@@ -18,8 +18,8 @@ class MySharedPreferences(context: Context) {
     val FLAG = "signIn_FLAG"
 
     val PREF_TOTAL_GPA = "totalGPA"
-    val PREF_TOTAL_CREDIT = "totalCredit"
-    val PREF_TOTAL_CREDIT_P = "totalCredit_P"
+    val PREF_TOTAL_CREDIT = "totalCredit"           //전체 과목 이수 학점
+    val PREF_TOTAL_CREDIT_PF = "totalCredit_PF"     //패논패 과목 이수 학점
     val PREF_TOTAL_RETAKE_GPA = "retakeGPA"
 
 
@@ -85,15 +85,22 @@ class MySharedPreferences(context: Context) {
         editor.apply()
     }
 
-    fun setTotalCredit_P(totalCredit_P: Int){
+    fun setTotalCreditPF(totalCreditPF: Int){
         val editor = prefs.edit()
-        editor.putInt(PREF_TOTAL_CREDIT_P, totalCredit_P)
+        editor.putInt(PREF_TOTAL_CREDIT_PF, totalCreditPF)
         editor.apply()
     }
 
     fun setRetakeGPA(retakeGPA: Float) {
         val editor = prefs.edit()
         editor.putFloat(PREF_TOTAL_RETAKE_GPA, retakeGPA)
+        editor.apply()
+    }
+
+    fun updateCredit(totalCredit: Int, totalCreditPF: Int) {
+        val editor = prefs.edit()
+        editor.putInt(PREF_TOTAL_CREDIT, totalCredit)
+        editor.putInt(PREF_TOTAL_CREDIT_PF, totalCreditPF)
         editor.apply()
     }
 
@@ -123,8 +130,8 @@ class MySharedPreferences(context: Context) {
         return prefs.getInt(PREF_TOTAL_CREDIT,0)
     }
 
-    fun getTotalCredit_P():Int{
-        return prefs.getInt(PREF_TOTAL_CREDIT_P,0)
+    fun getTotalCreditPF():Int{
+        return prefs.getInt(PREF_TOTAL_CREDIT_PF,0)
     }
 
     fun getRetakeGPA():Float {

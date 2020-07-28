@@ -8,9 +8,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
 import com.kok.grade_calculator.App
 import com.kok.grade_calculator.R
 import kotlinx.android.synthetic.main.fragment_setting.*
@@ -45,7 +42,7 @@ class SettingFragment : Fragment(){
         //현재 이수한 학점(전체)
         var nowCredit = App.prefs.getTotalCredit()
         //현재 이수한 패논패 과목 학점
-        var nowCredit_P = App.prefs.getTotalCredit_P()
+        var nowCredit_P = App.prefs.getTotalCreditPF()
         //현재 평점
         val nowGPA = App.prefs.getTotalGPA()
         //재수강 후 평점

@@ -15,7 +15,7 @@
         android:text="texttest"
         android:textSize="20sp"
         android:gravity="center"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:textColor="@color/white"/>
 
     <LinearLayout
@@ -37,7 +37,7 @@
             android:layout_width="1dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/tv_credit"
@@ -52,7 +52,7 @@
             android:layout_width="1dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/tv_grade"
@@ -67,7 +67,7 @@
             android:layout_width="1dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/tv_category"
@@ -82,7 +82,7 @@
             android:layout_width="1dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/tv_retakeGrade"
@@ -97,23 +97,26 @@
         android:id="@+id/view5"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimaryDark"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_page_recyclerview"
+        android:id="@+id/recyclerview_mypage"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
-        app:layout_constrainedHeight="true"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constrainedHeight="true" />
 
     <TextView
         android:id="@+id/addBtn"
-        android:layout_width="300dp"
-        android:layout_height="38dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_gravity="center|bottom"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         android:background="@drawable/btn_rounded_corner_rectangle"
         android:gravity="center"
         android:padding="10dp"
